@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8222
+
+
+### HUB LeafNodes Connections
+{{baseUrl}}/leafz
+
+### Leaf1 LeafNodes Connections
+http://localhost:8223/leafz
+
