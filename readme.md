@@ -51,6 +51,9 @@ npm install -g pnpm@latest-10
 == install frontend
 pnpx create-tsrouter-app@latest
 
+<<<<<<< HEAD
 
 == run frontend
 pnpm dev
+=======
+>>>>>>> 86d61ecbf1a9b636578516ab5dc76da00b986c3e
