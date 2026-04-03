@@ -48,6 +48,20 @@ goto %~1
     go run .\cmd\nkeys-generator\
     exit /b %errorlevel%
 
+:sf
+    echo === Server Frontend  dev ===
+    echo Running Server Frontend... 
+    :: Add your build commands here
+    pnpm --filter ./web/server dev
+    exit /b %errorlevel%
+
+:rf
+    echo === Remote Frontend  dev ===
+    echo Running Remote Frontend... 
+    :: Add your build commands here
+    pnpm --filter ./web/remote dev
+    exit /b %errorlevel%
+
 :help
     echo Usage: Makefile [command]
     echo.

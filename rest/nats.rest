@@ -1,9 +1,12 @@
-@baseUrl = http://localhost:8222
+@baseUrl_HUB = http://localhost:8222
+@baseUrl_LEAF1 = http://localhost:8223
 
+
+# TODO secure NATS monitoring endpoint
 
 ### HUB LeafNodes Connections
-{{baseUrl}}/leafz
+{{baseUrl_HUB}}/leafz
 
 ### Leaf1 LeafNodes Connections
-http://localhost:8223/leafz
+{{baseUrl_LEAF1}}/leafz
 

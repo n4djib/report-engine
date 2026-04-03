@@ -17,6 +17,7 @@ git init
 /internal : is for code that must stay private inside your repo
 /rest : is for rest api tests
 /tmp : air build output path
+/web : contains frontend code
 
 == Air ==
 go install github.com/air-verse/air@latest
@@ -41,5 +42,15 @@ nk -gen user -pubout
 we can generate the pair using "github.com/nats-io/nkeys"
 
 
+== pnpm through proxy
+npm install -g pnpm@latest-10
+
+                pnpm install --proxy http://username:password@proxy.example.com:8080 --https-proxy http://username:password@proxy.example.com:8080
+                pnpm install --https-proxy http://username:password@proxy.example.com:8080
+
+== install frontend
+pnpx create-tsrouter-app@latest
 
 
+== run frontend
+pnpm dev
