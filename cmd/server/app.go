@@ -3,12 +3,10 @@ package main
 import (
 	"context"
 	"log"
-	"os/exec"
-	"runtime"
 	"strconv"
 
 	"github.com/labstack/echo/v5"
-	"github.com/n4djib/report-engine/cmd/server/handlers"
+	handlers "github.com/n4djib/report-engine/internal/api/server"
 )
 
 type Application struct {
@@ -43,21 +41,8 @@ func (app Application) run() error {
 
 func (app Application) openBrowser(url string) {
 	if app.config.AppEnv == "production" {
-		if err := app.openURL(url); err != nil {
+		if err := openURL(url); err != nil {
 			log.Fatal("Problem Opening the browser\n", err)
 		}
 	}
-}
-
-func (app Application) openURL(url string) error {
-	var cmd *exec.Cmd
-	switch runtime.GOOS {
-	case "windows":
-		cmd = exec.Command("cmd", "/c", "start", url)
-	case "darwin":
-		cmd = exec.Command("open", url)
-	default:
-		cmd = exec.Command("xdg-open", url)
-	}
-	return cmd.Start()
 }

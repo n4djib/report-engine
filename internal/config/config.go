@@ -16,7 +16,7 @@ func LoadConfigFromFiles(cfg any, envFiles []string) error {
 	if len(envFiles) == 0 {
 		return errors.New("you have to at east provide one env file")
 	}
-	err := InitAndLoadEnv(cfg, envFiles)
+	err := initAndLoadEnv(cfg, envFiles)
 	if err != nil {
 		return err
 	}
@@ -32,7 +32,7 @@ func loadEnv(envFile string) error {
 	return godotenv.Load(envFile)
 }
 
-func InitAndLoadEnv(cfg any, envFiles []string) error {
+func initAndLoadEnv(cfg any, envFiles []string) error {
 	// load config files to Env Vars
 	for _, envFile := range envFiles {
 		if err := loadEnv(envFile); err != nil {
