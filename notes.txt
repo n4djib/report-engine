@@ -1,0 +1,5 @@
+
+use this to sever react from go
+    https://chatgpt.com/c/69d1124c-077c-832e-8525-eeea0e72abb4
+    step3 is important
+    + use vite proxy to access backend without CORS or TLS problems

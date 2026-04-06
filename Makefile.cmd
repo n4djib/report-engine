@@ -16,7 +16,7 @@ goto %~1
     echo === docker-compose ===
     echo Spinning Up... 
     :: Add your build commands here
-    docker compose -f docker/docker-compose.yaml up -d 
+    docker compose -f docker/docker-compose.yaml up
     exit /b %errorlevel%
 
 :sd
@@ -67,8 +67,10 @@ goto %~1
     echo.
     echo Commands:
     echo   dc - Spinning Up docker services
-    echo   sd - Watch Serve in Air
-    echo   rd - Watch Remote in Air
+    echo   sd - launch Serve in Air
+    echo   rd - launch Remote in Air
+    echo   sf - launch server frontend dev server
+    echo   rf - launch remote frontend dev server
     echo   nk - Generate Key Pair
     echo   nkeys - Generate Key Pair using nkeys
     exit /b 0
