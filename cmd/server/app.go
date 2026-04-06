@@ -7,6 +7,7 @@ import (
 
 	"github.com/labstack/echo/v5"
 	handlers "github.com/n4djib/report-engine/internal/api/server"
+	"github.com/n4djib/report-engine/internal/utils"
 )
 
 type Application struct {
@@ -41,7 +42,7 @@ func (app Application) run() error {
 
 func (app Application) openBrowser(url string) {
 	if app.config.AppEnv == "production" {
-		if err := openURL(url); err != nil {
+		if err := utils.OpenURL(url); err != nil {
 			log.Fatal("Problem Opening the browser\n", err)
 		}
 	}
