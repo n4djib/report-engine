@@ -7,6 +7,8 @@ import (
 
 	"github.com/labstack/echo/v5"
 	handlers "github.com/n4djib/report-engine/internal/api/server"
+	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
+	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
 )
 
@@ -26,6 +28,15 @@ func (app Application) run() error {
 	pingHandlers := handlers.PingServer{}
 	pingHandlers.RegisterHandlers(e.Group("/api"))
 
+	// Register Swagger UI and spec endpoints
+	spec, err := oapi.GetSwagger()
+	if err != nil {
+		return err
+	}
+	// swagger.RegisterSwagger(e.Group("/"))
+	swagger.RegisterSwagger(e, spec)
+
+	// Configure the http server
 	sc := echo.StartConfig{
 		Address:    ":" + strconv.Itoa(int(app.config.AppPort)),
 		HideBanner: app.config.HideBanner, // This replaces e.HideBanner = true
