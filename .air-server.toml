@@ -10,8 +10,13 @@ tmp_dir = "tmp"
   bin = "tmp\\server\\main.exe"
   cmd = "go build -o ./tmp/server/main.exe ./cmd/server"
   delay = 1000
-  entrypoint = ["tmp\\server\\main.exe"]
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  entrypoint = ["tmp\\server\\main.exe", "tmp\\remote\\main.exe"]
+  # TODO exclude node_modules in web from watch
+  exclude_dir = ["assets", "tmp", "vendor", "testdata", 
+    "web\\server\\node_modules", 
+    "web\\remote\\node_modules", 
+    "typespec\\node_modules"
+  ]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
