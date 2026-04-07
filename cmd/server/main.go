@@ -7,7 +7,7 @@ import (
 
 	// "github.com/davecgh/go-spew/spew"
 
-	"github.com/n4djib/report-engine/internal/config"
+	"github.com/n4djib/report-engine/pkg/config"
 )
 
 func main() {

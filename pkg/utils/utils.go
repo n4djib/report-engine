@@ -1,11 +1,12 @@
-package main
+package utilities
 
 import (
 	"os/exec"
 	"runtime"
 )
 
-func openURL(url string) error {
+// TODO maybecmove it to /pkg
+func OpenURL(url string) error {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "windows":
