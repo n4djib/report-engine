@@ -2,7 +2,6 @@ emit:
   - "@typespec/openapi3"
 options:
   "@typespec/openapi3":
-    output-file: ../../../typespec/spec.yaml
-    # emitter-output-dir: "{output-dir}/schema"
+    output-file: ../../../typespec/out/spec-remote.yaml
     openapi-versions:
       - 3.0.0
