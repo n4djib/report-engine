@@ -6,4 +6,5 @@ type ConfigVars struct {
 	AppPort    int    `env:"APP_PORT" envDefault:"8081"`
 	AppEnv     string `env:"APP_ENV" envDefault:"development"`
 	HideBanner bool   `env:"HIDE_BANNER" envDefault:"false"`
+	HidePort   bool   `env:"HIDE_PORT" envDefault:"false"`
 }

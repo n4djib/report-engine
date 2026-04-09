@@ -16,23 +16,14 @@ func LoadConfigFromFiles(cfg any, envFiles []string) error {
 	if len(envFiles) == 0 {
 		return errors.New("you have to at east provide one env file")
 	}
-	err := initAndLoadEnv(cfg, envFiles)
+	err := LoadAndParseEnv(cfg, envFiles)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func loadEnv(envFile string) error {
-	_, err := os.Stat(envFile)
-	if errors.Is(err, os.ErrNotExist) {
-		log.Fatal("File not found\n", err)
-	}
-	// Load them into ENV for this process
-	return godotenv.Load(envFile)
-}
-
-func initAndLoadEnv(cfg any, envFiles []string) error {
+func LoadAndParseEnv(cfg any, envFiles []string) error {
 	// load config files to Env Vars
 	for _, envFile := range envFiles {
 		if err := loadEnv(envFile); err != nil {
@@ -53,4 +44,13 @@ func initAndLoadEnv(cfg any, envFiles []string) error {
 	// spew.Dump(cfg)
 
 	return nil
+}
+
+func loadEnv(envFile string) error {
+	_, err := os.Stat(envFile)
+	if errors.Is(err, os.ErrNotExist) {
+		log.Fatal("File not found\n", err)
+	}
+	// Load them into ENV for this process
+	return godotenv.Load(envFile)
 }
