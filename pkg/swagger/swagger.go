@@ -7,10 +7,8 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/labstack/echo/v5"
-
-	// echoSwagger "github.com/swaggo/echo-swagger"
-	echoSwagger "github.com/swaggo/echo-swagger/v2"
+	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func RegisterSwagger(e *echo.Echo, spec *openapi3.T) {
@@ -39,18 +37,16 @@ const (
 )
 
 func registerOpenapiSpec(f format, spec *openapi3.T) echo.HandlerFunc {
-	return func(c *echo.Context) error {
+	return func(c echo.Context) error {
 		var data []byte
 		var err error
 
 		if f == formatJSON {
 			data, err = json.Marshal(spec)
 		}
-
 		if f == formatYAML {
 			data, err = yaml.Marshal(spec)
 		}
-
 		if err != nil {
 			return err
 		}

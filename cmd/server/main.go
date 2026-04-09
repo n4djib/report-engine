@@ -5,13 +5,13 @@ import (
 	"log/slog"
 	"os"
 
-	// "github.com/davecgh/go-spew/spew"
-
 	"github.com/n4djib/report-engine/pkg/config"
+	// "github.com/davecgh/go-spew/spew"
 )
 
 func main() {
 	configFiles := []string{"./cmd/server/.env", "./cmd/server/.env.local"}
+
 	cfg := ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)
 	if err != nil {
@@ -32,5 +32,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("Hello from server!")
+	fmt.Println("Server Ended!")
 }

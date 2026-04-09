@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
-	handlers "github.com/n4djib/report-engine/internal/api/server"
-	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
+	handlers "github.com/n4djib/report-engine/internal/api/remote"
+	"github.com/n4djib/report-engine/internal/api/remote/oapi-gen"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
 )
@@ -24,7 +24,7 @@ func NewApplication(config ConfigVars) *Application {
 func (app Application) run() error {
 	e := echo.New()
 
-	pingHandlers := handlers.ServerHandlers{}
+	pingHandlers := handlers.RemoteHandlers{}
 	// pingHandlers.RegisterHandlers(e.Group("/api"))
 	oapi.RegisterHandlers(e, pingHandlers)
 

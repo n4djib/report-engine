@@ -3,19 +3,14 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/labstack/echo/v5"
+	"github.com/labstack/echo/v4"
+	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
 )
 
-type PingServer struct{}
+type ServerHandlers struct{}
 
-func (h PingServer) RegisterHandlers(e *echo.Group) {
-	e.GET("/ping", h.pong)
-}
-
-func (h PingServer) pong(ctx *echo.Context) error {
-	resp := struct {
-		Message string
-	}{
+func (h ServerHandlers) PingPong(ctx echo.Context) error {
+	resp := oapi.SharedModelsPingResponse{
 		Message: "Pong from server!",
 	}
 	return ctx.JSON(http.StatusAccepted, resp)
