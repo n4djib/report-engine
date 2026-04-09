@@ -5,3 +5,8 @@ use this to sever react from go
     + use vite proxy to access backend without CORS or TLS problems
 
 use OapiRequestValidator in opai
+
+
+TODO make launching the servers & scripts easy
+    maybe dockerize it
+TODO 

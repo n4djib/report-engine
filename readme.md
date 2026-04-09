@@ -55,8 +55,7 @@ we can generate the key pair using "github.com/nats-io/nkeys"
 
 
 == install echo
-> go get github.com/labstack/echo/v5
-<!-- go get github.com/labstack/echo/v5/middleware -->
+> go get github.com/labstack/echo/v4
 
 
 == install typespec
@@ -76,7 +75,7 @@ openapi-versions:
 
 
 == installe echoSwagger
-> go get github.com/swaggo/echo-swagger/v2
+> go get github.com/swaggo/echo-swagger
 > go get gopkg.in/yaml.v2
 
 

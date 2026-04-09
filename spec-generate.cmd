@@ -1,6 +1,6 @@
 @REM @REM @REM this generates typespec/spec.yaml
-cmd /c tsp compile typespec/main-server.tsp --config typespec/tspconfig-server.yaml
-cmd /c tsp compile typespec/main-remote.tsp --config typespec/tspconfig-remote.yaml
+@REM cmd /c tsp compile typespec/main-server.tsp --config typespec/tspconfig-server.yaml
+@REM cmd /c tsp compile typespec/main-remote.tsp --config typespec/tspconfig-remote.yaml
 
 
 @REM this generates the GO API code in 
@@ -11,13 +11,6 @@ oapi-codegen -generate spec        -o internal/api/server/oapi-gen/spec.gen.go  
 oapi-codegen -generate types       -o internal/api/remote/oapi-gen/types.gen.go  -package oapi typespec/out/spec-remote.yaml
 oapi-codegen -generate echo-server -o internal/api/remote/oapi-gen/server.gen.go -package oapi typespec/out/spec-remote.yaml
 oapi-codegen -generate spec        -o internal/api/remote/oapi-gen/spec.gen.go   -package oapi typespec/out/spec-remote.yaml
-
-@REM change the generated code to echo v5
-powershell -Command "(Get-Content internal/api/server/oapi-gen/server.gen.go -Raw) -replace 'echo/v4', 'echo/v5' | Set-Content internal/api/server/oapi-gen/server.gen.go"
-powershell -Command "(Get-Content internal/api/server/oapi-gen/server.gen.go -Raw) -replace 'ctx echo.Context', 'ctx *echo.Context' | Set-Content internal/api/server/oapi-gen/server.gen.go"
-
-powershell -Command "(Get-Content internal/api/remote/oapi-gen/server.gen.go -Raw) -replace 'echo/v4', 'echo/v5' | Set-Content internal/api/remote/oapi-gen/server.gen.go"
-powershell -Command "(Get-Content internal/api/remote/oapi-gen/server.gen.go -Raw) -replace 'ctx echo.Context', 'ctx *echo.Context' | Set-Content internal/api/remote/oapi-gen/server.gen.go"
 
 
 @REM cmd /c npm -C web run prebuild
