@@ -5,7 +5,6 @@ import (
 	"runtime"
 )
 
-// TODO maybe mouve it to /pkg
 func OpenURL(url string) error {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
