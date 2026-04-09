@@ -10,11 +10,15 @@ tmp_dir = "tmp"
   bin = "tmp\\remote\\main.exe"
   cmd = "go build -o ./tmp/remote/main.exe ./cmd/remote"
   delay = 1000
-  entrypoint = ["tmp\\server\\main.exe", "tmp\\remote\\main.exe"]
+  entrypoint = ["tmp\\remote\\main.exe", "tmp\\remote\\main.exe"]
   exclude_dir = ["assets", "tmp", "vendor", "testdata", 
     "web\\server\\node_modules", 
     "web\\remote\\node_modules", 
-    "typespec\\node_modules"
+    "typespec\\node_modules",
+    # exclude dirs of server app
+    "cmd\\server",
+    "internal\\api\\server",
+    # "internal\\api\\server\\oapi-gen",
   ]
   exclude_file = []
   exclude_regex = ["_test.go"]
