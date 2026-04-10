@@ -24,6 +24,7 @@ func main() {
 	app := NewApplication(cfg)
 
 	// TODO we should open to the frontend app not the api
+	// add env var ponting to frontend url and open that instead
 	// open browser to APP url
 	go app.openBrowser(cfg.AppUrl + ":" + fmt.Sprint(cfg.AppPort) + "/api/ping")
 

@@ -22,9 +22,9 @@ function App() {
         console.log("response: ", response)
         setMessage(response.message);
 
-        // FIXME: this is just to test the type-safety and runtime validation, remove it later
-        const name = response.name 
-        console.log("--name:", name)
+        // this is just to test the type-safety and runtime validation, remove it later
+        // const name = response.name
+        // console.log("--name:", name)
 
       } catch (err) {
         console.error("Validation failed or Network error:", err);

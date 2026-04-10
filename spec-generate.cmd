@@ -1,6 +1,6 @@
 @REM this generates typespec/spec.yaml
-cmd /c scripts\spec-gen-server.bat
-cmd /c scripts\spec-gen-remote.bat
+@REM cmd /c scripts\spec-gen-server.bat
+@REM cmd /c scripts\spec-gen-remote.bat
 
 
 @REM @REM this generates the GO API code in 
@@ -13,4 +13,5 @@ cmd /c scripts\spec-gen-remote.bat
 @REM oapi-codegen -generate spec        -o internal/api/remote/oapi-gen/spec.gen.go   -package oapi typespec/out/spec-remote.yaml
 
 
-@REM cmd /c npm -C web run prebuild
+cmd /c scripts\update-api-server.bat
+cmd /c scripts\update-api-remote.bat

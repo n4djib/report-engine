@@ -94,12 +94,10 @@ go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
 
 = openapi-zod-client
-
 web\server> pnpm add zod
 web\server> pnpm add -D openapi-zod-client
 web\server> pnpm add @zodios/core
 
-> pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/server/src/api --group-strategy=tag-file
-
+> pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/server/src/api --group-strategy=tag-file --strict-objects
 
 
