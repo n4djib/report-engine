@@ -4,7 +4,6 @@ go 1.26.1
 
 require (
 	github.com/caarlos0/env/v11 v11.4.0
-	github.com/davecgh/go-spew v1.1.1
 	github.com/getkin/kin-openapi v0.134.0
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.15.1
@@ -40,6 +39,7 @@ require (
 	golang.org/x/net v0.52.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/text v0.35.0 // indirect
+	golang.org/x/time v0.14.0 // indirect
 	golang.org/x/tools v0.42.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
