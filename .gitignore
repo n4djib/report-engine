@@ -3,6 +3,7 @@ tmp
 *.nkey
 
 *.gen.go
-spec.yaml
 
 spec-*.yaml
+
+node_modules

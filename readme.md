@@ -56,6 +56,7 @@ we can generate the key pair using "github.com/nats-io/nkeys"
 
 == install echo
 > go get github.com/labstack/echo/v4
+> go get github.com/labstack/echo/v4/middleware
 
 
 == install typespec
@@ -83,16 +84,22 @@ openapi-versions:
 go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
 
-== rfontend client code generator
+== fontend client code generator
+                        pnpm add -D @openapitools/openapi-generator-cli
 
-pnpm add -D @openapitools/openapi-generator-cli
+                        pnpx @openapitools/openapi-generator-cli generate \
+                        -i typespec/spec.yaml \
+                        -g typescript-axios \
+                        -o src/api-generated
 
-pnpx @openapitools/openapi-generator-cli generate \
-  -i typespec/spec.yaml \
-  -g typescript-axios \
-  -o src/api-generated
 
-how about  openapi-zod-client
+= openapi-zod-client
+
+web\server> pnpm add zod
+web\server> pnpm add -D openapi-zod-client
+web\server> pnpm add @zodios/core
+
+> pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/server/src/api --group-strategy=tag-file
 
 
 
