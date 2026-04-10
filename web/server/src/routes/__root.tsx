@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
@@ -11,6 +11,15 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
+      <div className='border border-gray-300 p-4 mb-4'>
+        <Link className="m-4 " to="/">
+          Home
+        </Link>
+        <Link className="m-4" to="/about">
+          About
+        </Link>
+      </div>
+
       <Outlet />
       <TanStackDevtools
         config={{
