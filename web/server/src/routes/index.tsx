@@ -4,7 +4,6 @@ import { createApiClient } from "../api/ping";
 
 export const Route = createFileRoute('/')({ component: App })
 
-// TODO make this configurable via env vars
 export const api = createApiClient(import.meta.env.VITE_API_URL || "http://localhost:8080", {
   axiosConfig: {
     timeout: 5000,
