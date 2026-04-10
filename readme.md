@@ -84,20 +84,14 @@ openapi-versions:
 go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
 
-== fontend client code generator
-                        pnpm add -D @openapitools/openapi-generator-cli
-
-                        pnpx @openapitools/openapi-generator-cli generate \
-                        -i typespec/spec.yaml \
-                        -g typescript-axios \
-                        -o src/api-generated
-
-
-= openapi-zod-client
+== fontend client code generator with openapi-zod-client
 web\server> pnpm add zod
 web\server> pnpm add -D openapi-zod-client
 web\server> pnpm add @zodios/core
 
 > pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/server/src/api --group-strategy=tag-file --strict-objects
+
+== add tanstack/react-query
+pnpm add @tanstack/react-query
 
 
