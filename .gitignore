@@ -4,3 +4,5 @@ tmp
 
 *.gen.go
 spec.yaml
+
+spec-*.yaml

@@ -5,8 +5,7 @@ using Http;
 using SharedModels;
 
 @service(#{ title: "Report-Engine Remote Service" })
-// TODO make this configurable
-@server("http://localhost:8081", "Report-Engine API (Remote)")
+@server("http://localhost:8080", "Report-Engine API (Remote)")
 @route("/api")
 namespace RemoteService;
 

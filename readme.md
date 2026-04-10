@@ -82,3 +82,17 @@ openapi-versions:
 == install oapi-codegen
 go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 
+
+== rfontend client code generator
+
+pnpm add -D @openapitools/openapi-generator-cli
+
+pnpx @openapitools/openapi-generator-cli generate \
+  -i typespec/spec.yaml \
+  -g typescript-axios \
+  -o src/api-generated
+
+how about  openapi-zod-client
+
+
+
