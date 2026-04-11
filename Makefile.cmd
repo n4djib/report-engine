@@ -64,15 +64,32 @@ goto %~1
     pnpm --filter remote dev
     exit /b %errorlevel%
 
+:spec-gen:
+    echo === Generating API Spec and Code ===
+    echo Generating API Spec and Code... 
+    :: Add your build commands here
+        @REM this generates typespec/spec.yaml
+        cmd /c scripts\spec-gen-server.bat
+        cmd /c scripts\spec-gen-remote.bat
+        @REM this generates the GO API code in 
+        cmd /c scripts\oapi-codegen-server.bat
+        cmd /c scripts\oapi-codegen-remote.bat
+        @REM Generate the client API code in
+        cmd /c scripts\update-client-api-server.bat
+        cmd /c scripts\update-client-api-remote.bat
+    exit /b %errorlevel%
+
 :help
     echo Usage: Makefile [command]
     echo.
     echo Commands:
-    echo   dc - Spinning Up docker services
-    echo   sd - launch Serve in Air
-    echo   rd - launch Remote in Air
-    echo   sf - launch server frontend dev server
-    echo   rf - launch remote frontend dev server
-    echo   nk - Generate Key Pair
-    echo   nkeys - Generate Key Pair using nkeys
+    echo   spec-gen - Generate API Spec and Code
+    echo   nk       - Generate Key Pair (nk Util)
+    echo   nkeys    - Generate Key Pair using nkeys (GO app)
+    echo   ---      - - - - - - - - - - - - - - - -
+    echo   dc       - Spinning Up docker services
+    echo   sd       - launch Serve in Air
+    echo   rd       - launch Remote in Air
+    echo   sf       - launch server frontend dev server
+    echo   rf       - launch remote frontend dev server
     exit /b 0
