@@ -13,5 +13,5 @@
 @REM oapi-codegen -generate spec        -o internal/api/remote/oapi-gen/spec.gen.go   -package oapi typespec/out/spec-remote.yaml
 
 
-cmd /c scripts\update-api-server.bat
-cmd /c scripts\update-api-remote.bat
+cmd /c scripts\update-client-api-server.bat
+cmd /c scripts\update-client-api-remote.bat

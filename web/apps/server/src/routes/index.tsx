@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { createApiClient } from "../api/ping";
 import { usePing } from '#/lib/tanstack-query/ping';
+import SharedComponent from '@shared/components/SharedComponent';
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -20,6 +21,7 @@ function App() {
           hello world from Central frontend
         </div>
         <div><b>Ping (API call):</b> {data?.message}</div>
+        imported from shared : <SharedComponent />
       </main>
     </>
   )

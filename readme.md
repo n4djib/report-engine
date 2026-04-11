@@ -91,7 +91,15 @@ web\server> pnpm add @zodios/core
 
 > pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/server/src/api --group-strategy=tag-file --strict-objects
 
+
 == add tanstack/react-query
 pnpm add @tanstack/react-query
 
+
+== switicing web apps to monorepo
+web> pnpm install
+web> pnpm add @types/react
+
+pnpm --filter server dev
+pnpm --filter remote dev
 

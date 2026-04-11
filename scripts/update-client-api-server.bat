@@ -1,8 +1,8 @@
-cmd /c pnpx openapi-zod-client typespec\out\spec-remote.yaml --output web/remote/src/api --group-strategy=tag-file --strict-objects
+cmd /c pnpx openapi-zod-client typespec\out\spec-server.yaml --output web/apps/server/src/api --group-strategy=tag-file --strict-objects
 
 
 @echo off
-set "API_PATH=web/remote/src/api"
+set "API_PATH=web/apps/server/src/api"
 
 echo Stripping .passthrough() from files in %API_PATH%...
 

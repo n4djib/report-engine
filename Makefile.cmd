@@ -52,14 +52,16 @@ goto %~1
     echo === Server Frontend  dev ===
     echo Running Server Frontend... 
     :: Add your build commands here
-    pnpm --filter ./web/server dev
+    @REM pnpm --filter ./web/apps/server dev
+    pnpm --filter server dev
     exit /b %errorlevel%
 
 :rf
     echo === Remote Frontend  dev ===
     echo Running Remote Frontend... 
     :: Add your build commands here
-    pnpm --filter ./web/remote dev
+    @REM pnpm --filter ./web/apps/remote dev
+    pnpm --filter remote dev
     exit /b %errorlevel%
 
 :help

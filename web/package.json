@@ -1,0 +1,8 @@
+{
+    "name": "my-monorepo",
+    "private": true,
+    "version": "1.0.0",
+    "dependencies": {
+        "@types/react": "^19.2.14"
+    }
+}
