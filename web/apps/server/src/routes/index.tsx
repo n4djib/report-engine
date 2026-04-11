@@ -2,10 +2,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import { createApiClient } from "../api/ping";
 import { usePing } from '#/lib/tanstack-query/ping';
 import SharedComponent from '@shared/components/SharedComponent';
+import { env } from '#/env';
 
 export const Route = createFileRoute('/')({ component: App })
 
-export const api = createApiClient(import.meta.env.VITE_API_URL || "http://localhost:8080", {
+export const api = createApiClient(env.VITE_API_URL, {
   axiosConfig: {
     timeout: 5000,
   },
