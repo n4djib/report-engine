@@ -25,6 +25,7 @@ func LoadConfigFromFiles(cfg any, envFiles []string) error {
 
 func LoadAndParseEnv(cfg any, envFiles []string) error {
 	// load config files to Env Vars
+	// the order fo files is important, the last file variables will override the previous file ones
 	for _, envFile := range envFiles {
 		if err := loadEnv(envFile); err != nil {
 			return err
@@ -52,5 +53,8 @@ func loadEnv(envFile string) error {
 		log.Fatal("File not found\n", err)
 	}
 	// Load them into ENV for this process
-	return godotenv.Load(envFile)
+	// only sets them if they are NOT already set in the system environment
+	// return godotenv.Load(envFile)
+	// this one overloads the env variables even if they are already set in the system environment
+	return godotenv.Overload(envFile)
 }
