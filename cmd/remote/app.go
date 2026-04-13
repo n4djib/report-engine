@@ -1,21 +1,25 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	handlers "github.com/n4djib/report-engine/internal/api/remote"
 	"github.com/n4djib/report-engine/internal/api/remote/oapi-gen"
+	vars "github.com/n4djib/report-engine/internal/vars/remote"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
 )
 
 type Application struct {
-	config ConfigVars
+	config vars.ConfigVars
 }
 
-func NewApplication(config ConfigVars) *Application {
+func NewApplication(config vars.ConfigVars) *Application {
 	return &Application{
 		config: config,
 	}
@@ -23,8 +27,11 @@ func NewApplication(config ConfigVars) *Application {
 
 func (app Application) run() error {
 	e := echo.New()
+	useCORSMiddleware(e)
 
-	pingHandlers := handlers.RemoteHandlers{}
+	pingHandlers := handlers.RemoteHandlers{
+		Config: app.config, 
+	}  
 	// pingHandlers.RegisterHandlers(e.Group("/api"))
 	oapi.RegisterHandlers(e, pingHandlers)
 
@@ -34,7 +41,12 @@ func (app Application) run() error {
 		return err
 	}
 	// swagger.RegisterSwagger(e.Group("/"))
+	// TODO protect this API
 	swagger.RegisterSwagger(e, spec)
+
+	fmt.Println("⇨ Starting App:", app.config.AppName)
+	e.HideBanner = app.config.HideBanner
+	e.HidePort = app.config.HidePort
 
 	return e.Start(":" + strconv.Itoa(int(app.config.AppPort)))
 }
@@ -45,4 +57,13 @@ func (app Application) openBrowser(url string) {
 			log.Fatal("Problem Opening the browser\n", err)
 		}
 	}
+}
+
+func useCORSMiddleware(e *echo.Echo) {
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		// AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 }

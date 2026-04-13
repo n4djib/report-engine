@@ -16,7 +16,7 @@ goto %~1
     echo === docker-compose ===
     echo Spinning Up... 
     :: Add your build commands here
-    docker compose -f docker/docker-compose.yaml up
+    docker compose -f docker/docker-compose.dev.yaml up
     exit /b %errorlevel%
 
 :sd

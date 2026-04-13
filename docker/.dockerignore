@@ -1,0 +1,6 @@
+# FIXME docker is not using .dockerignore file
+# it says it is used only at build time and doen' taffect vlumes mount
+node_modules
+.git
+.env
+tmp

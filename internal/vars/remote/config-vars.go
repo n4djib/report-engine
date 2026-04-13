@@ -1,4 +1,4 @@
-package main
+package vars
 
 type ConfigVars struct {
 	AppName    string `env:"APP_NAME" envDefault:"Report Engine Remote"`

@@ -7,6 +7,7 @@ import (
 
 	"github.com/n4djib/report-engine/pkg/config"
 	// "github.com/davecgh/go-spew/spew"
+	vars "github.com/n4djib/report-engine/internal/vars/server"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	// we will load the env files in the docker compose file and in the local development environment
 	// configFiles := []string{}
 
-	cfg := ConfigVars{}
+	cfg := vars.ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)
 	if err != nil {
 		slog.Error("failed to load config", "error", err)

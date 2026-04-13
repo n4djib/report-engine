@@ -25,3 +25,12 @@ docker logs nats-leaf1
 docker logs nats-leaf2 -f
     -f will start watching the log
 
+
+
+
+docker compose -f docker/docker-compose.yaml up --build
+
+docker exec -it server-dev sh
+    access a container CLI
+
+

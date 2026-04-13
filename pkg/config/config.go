@@ -24,9 +24,7 @@ func LoadConfigFromFiles(cfg any, envFiles []string) error {
 func LoadAndParseEnv(cfg any, envFiles []string) error {
 	// load config files to Env system Vars
 	// the order of files is important according to if we use load or overload
-	// for now it is set to oveload so the last file will override the previous ones, 
-	// this is useful for local development where we want to override the env variables from the docker compose file
-	// or in our case to be consistant with docker compose behaviour
+	// for now it is set to load
 	for _, envFile := range envFiles {
 		if err := loadEnv(envFile); err != nil {
 			fmt.Printf("failed to load env file, error: %v\n", err)
@@ -51,7 +49,7 @@ func loadEnv(envFile string) error {
 	}
 	// Load them into ENV for this process
 	// only sets them if they are NOT already set in the system environment
-	// return godotenv.Load(envFile)
+	return godotenv.Load(envFile)
 	// this one overloads the env variables even if they are already set in the system environment
-	return godotenv.Overload(envFile)
+	// return godotenv.Overload(envFile)
 }

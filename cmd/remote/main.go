@@ -7,12 +7,13 @@ import (
 
 	// "github.com/davecgh/go-spew/spew"
 
+	vars "github.com/n4djib/report-engine/internal/vars/remote"
 	"github.com/n4djib/report-engine/pkg/config"
 )
 
 func main() {
 	configFiles := []string{"./cmd/remote/env/.env", "./cmd/remote/env/.env.local"}
-	cfg := ConfigVars{}
+	cfg := vars.ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)
 	if err != nil {
 		slog.Error("failed to load config", "error", err)

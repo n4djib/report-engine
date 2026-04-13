@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -9,15 +10,16 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	handlers "github.com/n4djib/report-engine/internal/api/server"
 	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
+	vars "github.com/n4djib/report-engine/internal/vars/server"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
 )
 
 type Application struct {
-	config ConfigVars
+	config vars.ConfigVars
 }
 
-func NewApplication(config ConfigVars) *Application {
+func NewApplication(config vars.ConfigVars) *Application {
 	return &Application{
 		config: config,
 	}
@@ -25,10 +27,11 @@ func NewApplication(config ConfigVars) *Application {
 
 func (app Application) run() error {
 	e := echo.New()
-
 	useCORSMiddleware(e)
 
-	pingHandlers := handlers.ServerHandlers{}
+	pingHandlers := handlers.ServerHandlers{
+		Config: app.config, 
+	}  
 	// pingHandlers.RegisterHandlers(e.Group("/api"))
 	oapi.RegisterHandlers(e, pingHandlers)
 
@@ -38,10 +41,12 @@ func (app Application) run() error {
 		return err
 	}
 	// swagger.RegisterSwagger(e.Group("/"))
+	// TODO protect this API
 	swagger.RegisterSwagger(e, spec)
 
-	// Hide Banner
-	e.HideBanner = true
+	fmt.Println("⇨ Starting App:", app.config.AppName)
+	e.HideBanner = app.config.HideBanner
+	e.HidePort = app.config.HidePort
 
 	return e.Start(":" + strconv.Itoa(int(app.config.AppPort)))
 }

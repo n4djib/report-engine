@@ -12,6 +12,5 @@ RUN go mod download
 
 # WORKDIR /app/cmd/remote
 WORKDIR /app
-EXPOSE 8081
 
 CMD ["air", "-c", "/app/.air-remote-docker.toml"]
