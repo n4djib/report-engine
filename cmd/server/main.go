@@ -11,6 +11,8 @@ import (
 
 func main() {
 	configFiles := []string{"./cmd/server/.env", "./cmd/server/.env.local"}
+	// we will load the env files in the docker compose file and in the local development environment
+	// configFiles := []string{}
 
 	cfg := ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)

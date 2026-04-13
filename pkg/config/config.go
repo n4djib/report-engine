@@ -13,9 +13,10 @@ import (
 )
 
 func LoadConfigFromFiles(cfg any, envFiles []string) error {
-	if len(envFiles) == 0 {
-		return errors.New("you have to at east provide one env file")
-	}
+	// disable the env file check for now, we will load the env files in the docker compose file and in the local development environment
+	// if len(envFiles) == 0 {
+	// 	return errors.New("you have to at east provide one env file")
+	// }
 	err := LoadAndParseEnv(cfg, envFiles)
 	if err != nil {
 		return err
