@@ -84,10 +84,12 @@ goto %~1
     echo.
     echo Commands:
     echo   spec-gen - Generate API Spec and Code
+    echo   dc       - Spinning Up docker services
+    echo   ---      - - - - - - - - - - - - - - - -
     echo   nk       - Generate Key Pair (nk Util)
     echo   nkeys    - Generate Key Pair using nkeys (GO app)
     echo   ---      - - - - - - - - - - - - - - - -
-    echo   dc       - Spinning Up docker services
+    echo   ---      - depricated commands (replaced by docker compose and air)
     echo   sd       - launch Serve in Air
     echo   rd       - launch Remote in Air
     echo   sf       - launch server frontend dev server

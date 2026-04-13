@@ -3,12 +3,9 @@ package config
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/caarlos0/env/v11"
-
-	// "github.com/davecgh/go-spew/spew"
 	"github.com/joho/godotenv"
 )
 
@@ -25,25 +22,24 @@ func LoadConfigFromFiles(cfg any, envFiles []string) error {
 }
 
 func LoadAndParseEnv(cfg any, envFiles []string) error {
-	// load config files to Env Vars
-	// the order fo files is important, the last file variables will override the previous file ones
+	// load config files to Env system Vars
+	// the order of files is important according to if we use load or overload
+	// for now it is set to oveload so the last file will override the previous ones, 
+	// this is useful for local development where we want to override the env variables from the docker compose file
+	// or in our case to be consistant with docker compose behaviour
 	for _, envFile := range envFiles {
 		if err := loadEnv(envFile); err != nil {
-			return err
+			fmt.Printf("failed to load env file, error: %v\n", err)
 		}
 	}
-
 	fmt.Println("Environment variables loaded from config files")
 
 	// parse env variables into the Config struct
-	// from the system? env variables
+	// from the system env variables
 	if err := env.Parse(cfg); err != nil {
-		// multiple errors in one string
+		// FXME: multiple errors in one string
 		return err
 	}
-
-	// debug print pritty the config struct
-	// spew.Dump(cfg)
 
 	return nil
 }
@@ -51,7 +47,7 @@ func LoadAndParseEnv(cfg any, envFiles []string) error {
 func loadEnv(envFile string) error {
 	_, err := os.Stat(envFile)
 	if errors.Is(err, os.ErrNotExist) {
-		log.Fatal("File not found\n", err)
+		return err
 	}
 	// Load them into ENV for this process
 	// only sets them if they are NOT already set in the system environment

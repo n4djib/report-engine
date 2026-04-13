@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	configFiles := []string{"./cmd/server/.env", "./cmd/server/.env.local"}
+	configFiles := []string{"./cmd/server/env/.env", "./cmd/server/env/.env.local"}
 	// we will load the env files in the docker compose file and in the local development environment
 	// configFiles := []string{}
 

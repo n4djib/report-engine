@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	configFiles := []string{"./cmd/remote/.env", "./cmd/remote/.env.local"}
+	configFiles := []string{"./cmd/remote/env/.env", "./cmd/remote/env/.env.local"}
 	cfg := ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)
 	if err != nil {
