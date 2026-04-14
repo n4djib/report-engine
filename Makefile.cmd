@@ -69,6 +69,13 @@ goto %~1
     @REM pnpm --filter ./web/apps/remote dev
     pnpm --filter remote dev
     exit /b %errorlevel%
+    
+:flint
+    echo === Lint Frontends ===
+    echo linting Frontends... 
+    :: Add your build commands here
+    pnpm -C web lint
+    exit /b %errorlevel%
 
 :spec-gen:
     echo === Generating API Spec and Code ===
@@ -92,6 +99,7 @@ goto %~1
     echo   spec-gen - Generate API Spec and Code
     echo   dcd      - Spinning Up docker services (development)
     echo   dcp      - Spinning Up docker services (production)
+    echo   flint    - Lint frontend code 
     echo   ---      - - - - - - - - - - - - - - - -
     echo   nk       - Generate Key Pair (nk Util)
     echo   nkeys    - Generate Key Pair using nkeys (GO app)

@@ -1,10 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 import { createApiClient } from "../api/ping";
-import { usePing } from '#/lib/tanstack-query/ping';
-import SharedComponent from '@shared/components/SharedComponent';
-import { env } from '#/env';
+import { usePing } from "#/lib/tanstack-query/ping";
+import { env } from "#/env";
+import SharedComponent from "@packages/ui-components/SharedComponent";
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute("/")({ component: App });
 
 export const api = createApiClient(env.VITE_API_URL, {
   axiosConfig: {
@@ -15,15 +15,17 @@ export const api = createApiClient(env.VITE_API_URL, {
 function App() {
   const { data } = usePing();
 
+  console.log("ping server:", data?.message);
+
   return (
     <>
       <main className="">
+        <div>hello world from Central frontend</div>
         <div>
-          hello world from Central frontend
+          <b>Ping (API call):</b> {data?.message}
         </div>
-        <div><b>Ping (API call):</b> {data?.message}</div>
         imported from shared : <SharedComponent />
       </main>
     </>
-  )
+  );
 }
