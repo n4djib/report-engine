@@ -12,11 +12,17 @@ if %errorlevel% neq 0 (
 )
 goto %~1
 
-:dc
-    echo === docker-compose ===
+:dcd
+    echo === docker-compose dev ===
     echo Spinning Up... 
     :: Add your build commands here
     docker compose -f docker/docker-compose.dev.yaml up
+    exit /b %errorlevel%
+:dcp
+    echo === docker-compose prod ===
+    echo Spinning Up... 
+    :: Add your build commands here
+    docker compose -f docker/docker-compose.prod.yaml up
     exit /b %errorlevel%
 
 :sd
@@ -84,7 +90,8 @@ goto %~1
     echo.
     echo Commands:
     echo   spec-gen - Generate API Spec and Code
-    echo   dc       - Spinning Up docker services
+    echo   dcd      - Spinning Up docker services (development)
+    echo   dcp      - Spinning Up docker services (production)
     echo   ---      - - - - - - - - - - - - - - - -
     echo   nk       - Generate Key Pair (nk Util)
     echo   nkeys    - Generate Key Pair using nkeys (GO app)

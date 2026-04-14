@@ -1,25 +1,18 @@
 x-remote-base: &remote
   build:
     context: ..
-    dockerfile: docker/Dockerfile-remote.dev
+    dockerfile: docker/Dockerfile-remote.prod
   working_dir: /app
   env_file:
     - ../cmd/remote/env/.env
     - ../cmd/remote/env/.env.local
-  volumes:
-     - ../cmd/remote:/app/cmd/remote
-     - /app/cmd/remote/env  # exclude env files
-     - ../internal/api/remote:/app/internal/api/remote
-     - ../internal/vars/remote:/app/internal/vars/remote
-     - ../pkg:/app/pkg
-     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
 
 services:
   server:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-server.dev
-    container_name: server-dev
+      dockerfile: docker/Dockerfile-server.prod
+    container_name: server-prod
     working_dir: /app
     ports:
       - "8080:8080"
@@ -28,32 +21,25 @@ services:
       - ../cmd/server/env/.env.local
     environment:
       - APP_PORT=8080
-      - APP_NAME=Development Server
-    volumes:
-      - ../cmd/server:/app/cmd/server
-      # - /app/cmd/server/env  # exclide env files
-      - ../internal/api/server:/app/internal/api/server
-      - ../internal/vars/server:/app/internal/vars/server
-      - ../pkg:/app/pkg
-      - ../docker/.air-server-docker.toml:/app/.air-server-docker.toml
+      - APP_NAME=Production Server
 
   remote-1:
     <<: *remote
-    container_name: remote-1-dev
-    environment:
-      - APP_PORT=8081
-      - APP_NAME=Development Remote-1
+    container_name: remote-1-prod
     ports:
       - "8081:8081"
+    environment:
+      - APP_PORT=8081
+      - APP_NAME=Production Remote-1
 
   remote-2:
     <<: *remote
-    container_name: remote-2-dev
-    environment:
-      - APP_PORT=8082
-      - APP_NAME=Development Remote-2
+    container_name: remote-2-prod
     ports:
       - "8082:8082"
+    environment:
+      - APP_PORT=8082
+      - APP_NAME=Production Remote-2
 
   # hub:
   #   image: nats:latest
@@ -94,8 +80,5 @@ services:
   #     - hub
   
 
-    
 volumes:
-  hub-js:
-  leaf-js1:
-  leaf-js2:
+  hub-js:     # for nats streaming server

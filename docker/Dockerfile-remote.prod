@@ -1,0 +1,25 @@
+FROM golang:1.26-alpine AS builder
+
+WORKDIR /app
+
+# Install git (needed for dependencies sometimes)
+RUN apk add --no-cache git
+
+# Cache deps
+COPY go.mod go.sum ./
+RUN go mod download
+
+# copy only
+COPY cmd/remote cmd/remote
+COPY internal internal
+COPY pkg pkg
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -o remote ./cmd/remote
+
+FROM alpine:latest
+
+WORKDIR /app
+COPY --from=builder /app/remote .
+
+CMD ["./remote"]
