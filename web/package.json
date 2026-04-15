@@ -25,5 +25,11 @@
   },
   "dependencies": {
     "@types/react-query": "^1.2.9"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss"
+    ]
   }
 }
