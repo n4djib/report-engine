@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	// Note: .env.local is not copied to docker
+	// .env is copied only in dev
 	configFiles := []string{"./cmd/server/env/.env", "./cmd/server/env/.env.local"}
 	// we will load the env files in the docker compose file and in the local development environment
 	// configFiles := []string{}

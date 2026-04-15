@@ -15,13 +15,13 @@ goto %~1
 :dcd
     echo === docker-compose dev ===
     echo Spinning Up... 
-    :: Add your build commands here
+    docker compose -f docker/docker-compose.dev-build.yaml build
     docker compose -f docker/docker-compose.dev.yaml up
     exit /b %errorlevel%
 :dcp
     echo === docker-compose prod ===
-    echo Spinning Up... 
-    :: Add your build commands here
+    echo Spinning Up...
+    docker compose -f docker/docker-compose.prod-build.yaml build
     docker compose -f docker/docker-compose.prod.yaml up
     exit /b %errorlevel%
 

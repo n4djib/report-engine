@@ -1,25 +1,20 @@
 FROM golang:1.26-alpine AS builder
-
 WORKDIR /app
-
-# Install git (needed for dependencies sometimes)
-RUN apk add --no-cache git
 
 # Cache deps
 COPY go.mod go.sum ./
 RUN go mod download
 
 # copy only
-COPY cmd/server cmd/server
+COPY cmd/server/*.go cmd/server/
 COPY internal internal
 COPY pkg pkg
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-    go build -o server ./cmd/server
+    go build -o main ./cmd/server
 
 FROM alpine:latest
-
 WORKDIR /app
-COPY --from=builder /app/server .
 
-CMD ["./server"]
+COPY --from=builder /app/main .
+CMD ["./main"]

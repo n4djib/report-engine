@@ -1,0 +1,6 @@
+services:
+  remote-build:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-remote.dev
+    image: remote-build-dev:latest

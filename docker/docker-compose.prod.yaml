@@ -1,14 +1,12 @@
 x-remote-base: &remote
-  build:
-    context: ..
-    dockerfile: docker/Dockerfile-remote.prod
+  image: remote-build-prod:latest
   working_dir: /app
   env_file:
     - ../cmd/remote/env/.env
     - ../cmd/remote/env/.env.local
 
 services:
-  server:
+  server-prod:
     build:
       context: ..
       dockerfile: docker/Dockerfile-server.prod
@@ -78,7 +76,6 @@ services:
   #   command: ["-c", "/etc/nats/leaf.conf"]
   #   depends_on:
   #     - hub
-  
 
 volumes:
-  hub-js:     # for nats streaming server
+  hub-js: # for nats streaming server

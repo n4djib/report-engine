@@ -12,7 +12,12 @@ import (
 )
 
 func main() {
+	// Note: .env.local is not copied to docker
+	// .env is copied only in dev
 	configFiles := []string{"./cmd/remote/env/.env", "./cmd/remote/env/.env.local"}
+	// we will load the env files in the docker compose file and in the local development environment
+	// configFiles := []string{}
+	
 	cfg := vars.ConfigVars{}
 	err := config.LoadConfigFromFiles(&cfg, configFiles)
 	if err != nil {

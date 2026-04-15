@@ -1,21 +1,35 @@
-x-remote-base: &remote
-  build:
-    context: ..
-    dockerfile: docker/Dockerfile-remote.dev
+# x-remote-dev-base: &remote
+#   build:
+#     context: ..
+#     dockerfile: docker/Dockerfile-remote.dev
+#   working_dir: /app
+#   env_file:
+#     - ../cmd/remote/env/.env.local
+#   volumes:
+#     - ../cmd/remote:/app/cmd/remote
+#     - /app/cmd/remote/env # exclude env files
+#     - ../cmd/remote/env/.env:/app/cmd/remote/env/.env
+#     - ../internal/api/remote:/app/internal/api/remote
+#     - ../internal/vars/remote:/app/internal/vars/remote
+#     - ../pkg:/app/pkg
+#     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
+
+x-remote-dev-base: &remote
+  image: remote-build-dev:latest
   working_dir: /app
   env_file:
-    - ../cmd/remote/env/.env
     - ../cmd/remote/env/.env.local
   volumes:
-     - ../cmd/remote:/app/cmd/remote
-     - /app/cmd/remote/env  # exclude env files
-     - ../internal/api/remote:/app/internal/api/remote
-     - ../internal/vars/remote:/app/internal/vars/remote
-     - ../pkg:/app/pkg
-     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
+    - ../cmd/remote:/app/cmd/remote
+    - /app/cmd/remote/env # exclude env files
+    - ../cmd/remote/env/.env:/app/cmd/remote/env/.env
+    - ../internal/api/remote:/app/internal/api/remote
+    - ../internal/vars/remote:/app/internal/vars/remote
+    - ../pkg:/app/pkg
+    - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
 
 services:
-  server:
+  server-dev:
     build:
       context: ..
       dockerfile: docker/Dockerfile-server.dev
@@ -24,20 +38,21 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - ../cmd/server/env/.env
       - ../cmd/server/env/.env.local
     environment:
       - APP_PORT=8080
       - APP_NAME=Development Server
     volumes:
-      - ../cmd/server:/app/cmd/server
-      # - /app/cmd/server/env  # exclide env files
+      - ../cmd/server/main.go:/app/cmd/server/main.go
+      - ../cmd/server/app.go:/app/cmd/server/app.go
+      - /app/cmd/server/env # exclide env files
+      - ../cmd/server/env/.env:/app/cmd/server/env/.env
       - ../internal/api/server:/app/internal/api/server
       - ../internal/vars/server:/app/internal/vars/server
       - ../pkg:/app/pkg
       - ../docker/.air-server-docker.toml:/app/.air-server-docker.toml
 
-  remote-1:
+  remote-dev-1:
     <<: *remote
     container_name: remote-1-dev
     environment:
@@ -46,7 +61,7 @@ services:
     ports:
       - "8081:8081"
 
-  remote-2:
+  remote-dev-2:
     <<: *remote
     container_name: remote-2-dev
     environment:
@@ -92,9 +107,7 @@ services:
   #   command: ["-c", "/etc/nats/leaf.conf"]
   #   depends_on:
   #     - hub
-  
 
-    
 volumes:
   hub-js:
   leaf-js1:
