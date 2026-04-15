@@ -1,13 +1,13 @@
 # Folder Structure
 
-- /cmd : contains the apps entries and env
-- /docker : docker config
-- /internal : is for code that must stay private inside your repo
-- /pkg : is for code you are OK with other projects importing
-- /rest : is for rest api tests
-- /scripts : contains scripts to generate code
-- /typespec : contains typespec files and output
-- /web : contains frontend code
+- **/cmd :** contains the apps entries and env
+- **/docker :** docker config
+- **/internal :** is for code that must stay private inside your repo
+- **/pkg :** is for code you are OK with other projects importing
+- **/rest :** is for rest api tests
+- **/scripts :** contains scripts to generate code
+- **/typespec :** contains typespec files and output
+- **/web :** contains frontend code
 
 **Note:** we have two monrepos inside each other
 
@@ -18,12 +18,14 @@
 
 > \> **Makefile.cmd**  
 > display help  
-> \> **Makefile.cmd dc**  
-> run Services in docker-compose  
-> \> **Makefile.cmd sd**  
-> run Server with AIR  
-> \> **Makefile.cmd rd**  
-> run Remote with AIR
+> \> **Makefile.cmd spec-gen**  
+>  Generate API Spec and Code  
+> \> **Makefile.cmd dcd**  
+>  run Services in docker-compose (developement)  
+> \> **Makefile.cmd dcp**  
+>  run Services in docker-compose (Production)  
+> \> **Makefile.cmd flint**  
+>  Lint frontend code
 
 == Initialize GO
 

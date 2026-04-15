@@ -7,3 +7,5 @@ tmp
 spec-*.yaml
 
 node_modules
+docker/docker-compose.dev.yaml
+web/.pnpm-store

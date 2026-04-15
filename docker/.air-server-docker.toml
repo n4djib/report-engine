@@ -11,7 +11,8 @@ bin = "tmp/server/main"
 # delay = 1000
 entrypoint = ["tmp/server/main"]
 poll = true
-poll_interval = 1000
+# poll_interval = 1000
+poll_interval = 500
 
 exclude_dir = [
   "assets",
