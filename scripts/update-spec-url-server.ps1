@@ -1,4 +1,4 @@
-$envFile = "cmd\server\.env"
+$envFile = "cmd\server\env\.env"
 $targetFile = "typespec\out\spec-server.yaml"
 
 # load env

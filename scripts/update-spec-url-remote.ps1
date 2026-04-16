@@ -1,4 +1,4 @@
-$envFile = "cmd\remote\.env"
+$envFile = "cmd\remote\env\.env"
 $targetFile = "typespec\out\spec-remote.yaml"
 
 # load env

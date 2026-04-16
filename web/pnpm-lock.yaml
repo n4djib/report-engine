@@ -8,12 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.99.0
+        version: 5.99.0(react@19.2.5)
       '@tanstack/react-router':
         specifier: ^1.168.22
         version: 1.168.22(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@types/react-query':
         specifier: ^1.2.9
         version: 1.2.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@zodios/core':
+        specifier: ^10.9.6
+        version: 10.9.6(axios@1.15.0)(zod@4.3.6)
       zod:
         specifier: ^4.3.6
         version: 4.3.6
