@@ -12,6 +12,16 @@ x-remote-dev-base: &remote
     - ../pkg:/app/pkg
     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
 
+x-front-dev-base: &front
+  image: front-build-dev:latest
+  volumes:
+    - ../web:/app
+    - /app/node_modules
+  environment:
+    # - CI=true
+    - CHOKIDAR_USEPOLLING=true
+    - WATCHPACK_POLLING=true
+
 services:
   server-dev:
     build:
@@ -45,68 +55,59 @@ services:
     ports:
       - "8081:8081"
 
-  # remote-dev-2:
-  #   <<: *remote
-  #   container_name: remote-2-dev
-  #   environment:
-  #     - APP_PORT=8082
-  #     - APP_NAME=Development Remote-2
-  #   ports:
-  #     - "8082:8082"
+  remote-dev-2:
+    <<: *remote
+    container_name: remote-2-dev
+    environment:
+      - APP_PORT=8082
+      - APP_NAME=Development Remote-2
+    ports:
+      - "8082:8082"
 
   server-front-dev:
-    build:
-      context: ../web
-      dockerfile: ../docker/Dockerfile.frontend.dev
-    volumes:
-      - ../web:/app # FIXME this means it reload both at the same time
-      - /app/node_modules
+    <<: *front
+    container_name: server-front-dev
     ports:
       - "3000:3000"
     command: >
-      sh -c "pnpm install && pnpm --filter ./apps/server dev --host 0.0.0.0 --port 3000"
+      sh -c "pnpm install && pnpm --filter ./apps/server dev"
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true
+      - PORT=3000
       - CI=true
+      # - CHOKIDAR_USEPOLLING=true
+      # - WATCHPACK_POLLING=true
     depends_on:
       - server-dev
 
   remote-front-dev-1:
-    build:
-      context: ../web
-      dockerfile: ../docker/Dockerfile.frontend.dev
-    volumes:
-      - ../web:/app
-      - /app/node_modules
+    <<: *front
+    container_name: remote-front-1-dev
     ports:
       - "3001:3001"
     command: >
-      sh -c "pnpm install && pnpm --filter remote dev --host 0.0.0.0 --port 3001"
+      sh -c "pnpm install && pnpm --filter remote dev"
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true
+      - PORT=3001
       - CI=true
+      # - CHOKIDAR_USEPOLLING=true
+      # - WATCHPACK_POLLING=true
     depends_on:
       - remote-dev-1
 
-  # remote-front-dev-2:
-  #   build:
-  #     context: ../web
-  #     dockerfile: ../docker/Dockerfile.frontend.dev
-  #   volumes:
-  #     - ../web:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - "3002:3002"
-  #   command: >
-  #     sh -c "pnpm install && pnpm --filter remote dev --host 0.0.0.0 --port 3002"
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true
-  #     - WATCHPACK_POLLING=true
-  #     - CI=true
-  #   depends_on:
-  #     - remote-dev-2
+  remote-front-dev-2:
+    <<: *front
+    container_name: remote-front-2-dev
+    ports:
+      - "3002:3002"
+    command: >
+      sh -c "pnpm install && pnpm --filter remote dev"
+    environment:
+      - PORT=3002
+      - CI=true
+      # - CHOKIDAR_USEPOLLING=true
+      # - WATCHPACK_POLLING=true
+    depends_on:
+      - remote-dev-2
 
   # hub:
   #   image: nats:latest

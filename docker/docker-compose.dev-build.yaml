@@ -4,3 +4,9 @@ services:
       context: ..
       dockerfile: docker/Dockerfile-remote.dev
     image: remote-build-dev:latest
+
+  front-build:
+    build:
+      context: ../web
+      dockerfile: ../docker/Dockerfile.frontend.dev
+    image: front-build-dev:latest
