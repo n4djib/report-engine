@@ -11,7 +11,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <div className='border border-gray-300 p-4 mb-4'>
+      <div className="border border-gray-300 p-4 mb-4">
         <Link className="m-4 " to="/">
           Home
         </Link>
