@@ -17,10 +17,6 @@ x-front-dev-base: &front
   volumes:
     - ../web:/app
     - /app/node_modules
-  # environment:
-  #   # - CI=true
-  #   - CHOKIDAR_USEPOLLING=true
-  #   - WATCHPACK_POLLING=true
 
 services:
   # server-dev:
@@ -94,18 +90,18 @@ services:
     # depends_on:
     #   - remote-dev-1
 
-  # remote-front-dev-2:
-  #   <<: *front
-  #   container_name: remote-front-2-dev
-  #   ports:
-  #     - "3002:3002"
-  #   command: >
-  #     sh -c "pnpm install && pnpm --filter remote dev"
-  #   environment:
-  #     - PORT=3002
-  #     - CI=true
-  #     - CHOKIDAR_USEPOLLING=true
-  #     - WATCHPACK_POLLING=true
+  remote-front-dev-2:
+    <<: *front
+    container_name: remote-front-2-dev
+    ports:
+      - "3002:3002"
+    command: >
+      sh -c "pnpm install && pnpm --filter remote dev"
+    environment:
+      - VITE_FRONT_PORT=3002
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
   #   depends_on:
   #     - remote-dev-2
 
