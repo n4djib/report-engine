@@ -24,7 +24,8 @@
     "typescript": "^5.4.0"
   },
   "dependencies": {
-    "@types/react-query": "^1.2.9"
+    "@types/react-query": "^1.2.9",
+    "zod": "^4.3.6"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
