@@ -19,46 +19,46 @@ x-front-dev-base: &front
     - /app/node_modules
 
 services:
-  # server-dev:
-  #   build:
-  #     context: ..
-  #     dockerfile: docker/Dockerfile-server.dev
-  #   container_name: server-dev
-  #   working_dir: /app
-  #   ports:
-  #     - "8080:8080"
-  #   env_file:
-  #     - ../cmd/server/env/.env.local
-  #   environment:
-  #     - APP_PORT=8080
-  #     - APP_NAME=Development Server
-  #   volumes:
-  #     - ../cmd/server/main.go:/app/cmd/server/main.go
-  #     - ../cmd/server/app.go:/app/cmd/server/app.go
-  #     - /app/cmd/server/env # exclide env files
-  #     - ../cmd/server/env/.env:/app/cmd/server/env/.env
-  #     - ../internal/api/server:/app/internal/api/server
-  #     - ../internal/vars/server:/app/internal/vars/server
-  #     - ../pkg:/app/pkg
-  #     - ../docker/.air-server-docker.toml:/app/.air-server-docker.toml
+  server-dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-server.dev
+    container_name: server-dev
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../cmd/server/env/.env.local
+    environment:
+      - APP_PORT=8080
+      - APP_NAME=Development Server
+    volumes:
+      - ../cmd/server/main.go:/app/cmd/server/main.go
+      - ../cmd/server/app.go:/app/cmd/server/app.go
+      - /app/cmd/server/env # exclide env files
+      - ../cmd/server/env/.env:/app/cmd/server/env/.env
+      - ../internal/api/server:/app/internal/api/server
+      - ../internal/vars/server:/app/internal/vars/server
+      - ../pkg:/app/pkg
+      - ../docker/.air-server-docker.toml:/app/.air-server-docker.toml
 
-  # remote-dev-1:
-  #   <<: *remote
-  #   container_name: remote-1-dev
-  #   environment:
-  #     - APP_PORT=8081
-  #     - APP_NAME=Development Remote-1
-  #   ports:
-  #     - "8081:8081"
+  remote-dev-1:
+    <<: *remote
+    container_name: remote-1-dev
+    environment:
+      - APP_PORT=8081
+      - APP_NAME=Development Remote-1
+    ports:
+      - "8081:8081"
 
-  # remote-dev-2:
-  #   <<: *remote
-  #   container_name: remote-2-dev
-  #   environment:
-  #     - APP_PORT=8082
-  #     - APP_NAME=Development Remote-2
-  #   ports:
-  #     - "8082:8082"
+  remote-dev-2:
+    <<: *remote
+    container_name: remote-2-dev
+    environment:
+      - APP_PORT=8082
+      - APP_NAME=Development Remote-2
+    ports:
+      - "8082:8082"
 
   server-front-dev:
     <<: *front
@@ -72,8 +72,8 @@ services:
       - CI=true
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-    # depends_on:
-    #   - server-dev
+    depends_on:
+      - server-dev
 
   remote-front-dev-1:
     <<: *front
@@ -87,8 +87,8 @@ services:
       - CI=true
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-    # depends_on:
-    #   - remote-dev-1
+    depends_on:
+      - remote-dev-1
 
   remote-front-dev-2:
     <<: *front
@@ -102,8 +102,8 @@ services:
       - CI=true
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-  #   depends_on:
-  #     - remote-dev-2
+    depends_on:
+      - remote-dev-2
 
   # hub:
   #   image: nats:latest

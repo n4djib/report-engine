@@ -7,6 +7,4 @@ use this to sever react from go
 use OapiRequestValidator in opai
 
 
-TODO make launching the servers & scripts easy
-    maybe dockerize it
  

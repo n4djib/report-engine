@@ -27,66 +27,84 @@
 > \> **Makefile.cmd flint**  
 >  Lint frontend code
 
-== Initialize GO
+# Project Setup
 
-> go mod init github.com/n4djib/report-engine
+## Clone repo
 
-    initialize mod file
+> git clone https://github.com/n4djib/report-engine.git
+
+## Download GO packages
 
 > go mod tidy
 
-    tidy up mod
+## install pnpm globally
+
+> npm install -g pnpm@latest-10
+
+## install web packages
+
+> cd web
+> pnpm install
+
+## install typespec
+
+> pnpm add -g @typespec/compiler
+> cd typespec
+> pnpm install
+
+# Run Project
+
+> Makefile.cmd spec-gen
+> Makefile.cmd dcd
+
+=
+
+=
+
+=
+
+== Initialize GO
+go mod init github.com/n4djib/report-engine
+initialize mod file
+
+go mod tidy
 
 == GIT
-
-> git config --global user.name "Your Name"
-> git config --global user.email "your.email@example.com"
-> git init
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git init
 
 == Air ==
-
-> go install github.com/air-verse/air@latest
-> air init
-
-    this generates .air.toml
+go install github.com/air-verse/air@latest
+air init
+this generates .air.toml
 
 == nk (nkey key pair generator)
-
-> go install github.com/nats-io/nkeys/nk@latest
-> vnk -gen user -pubout
+go install github.com/nats-io/nkeys/nk@latest
+nk -gen user -pubout
 
 we can generate the key pair using "github.com/nats-io/nkeys"
 
 == pnpm
-
-> npm install -g pnpm@latest-10
-> pnpm setup
+npm install -g pnpm@latest-10
+pnpm setup
 
 == install frontend
-
-> pnpx create-tsrouter-app@latest
+pnpx create-tsrouter-app@latest
 
 web> pnpm add -D -w eslint @eslint/js typescript-eslint
 add eslint
 
 == run frontend
-
-> pnpm dev
-> pnpm build
-
-== install echo
-
-> go get github.com/labstack/echo/v4
-> go get github.com/labstack/echo/v4/middleware
+pnpm dev
+pnpm build
 
 == install typespec
-
-> pnpm add -g @typespec/compiler
-> mkdir typespec
-> cd typespec
-> typespec> tsp init
-
-    initialize typespec inside typespec folder
+pnpm add -g @typespec/compiler
+mkdir typespec
+cd typespec
+typespec> tsp init
+initialize typespec inside typespec folder
 
 typespec> cd ..
 
@@ -97,9 +115,8 @@ openapi-versions: - 3.0.0
 > tsp compile typespec --watch
 
 == installe echoSwagger
-
-> go get github.com/swaggo/echo-swagger
-> go get gopkg.in/yaml.v2
+go get github.com/swaggo/echo-swagger
+go get gopkg.in/yaml.v2
 
 == install oapi-codegen
 go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
