@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "central",
   "private": true,
   "type": "module",
   "imports": {

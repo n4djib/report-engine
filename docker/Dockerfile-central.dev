@@ -11,4 +11,4 @@ RUN go mod download
 
 WORKDIR /app
 
-CMD ["air", "-c", "/app/.air-server-docker.toml"]
+CMD ["air", "-c", "/app/.air-central-docker.toml"]

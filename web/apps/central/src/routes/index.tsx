@@ -15,7 +15,7 @@ export const api = createApiClient(env.VITE_API_URL, {
 function App() {
   const { data } = usePing();
 
-  console.log("ping server:", data?.message);
+  console.log("ping central:", data?.message);
 
   return (
     <>

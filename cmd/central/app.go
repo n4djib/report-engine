@@ -8,9 +8,9 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	handlers "github.com/n4djib/report-engine/internal/api/server"
-	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
-	vars "github.com/n4djib/report-engine/internal/vars/server"
+	handlers "github.com/n4djib/report-engine/internal/api/central"
+	"github.com/n4djib/report-engine/internal/api/central/oapi-gen"
+	vars "github.com/n4djib/report-engine/internal/vars/central"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
 )
@@ -29,7 +29,7 @@ func (app Application) run() error {
 	e := echo.New()
 	useCORSMiddleware(e)
 
-	pingHandlers := handlers.ServerHandlers{
+	pingHandlers := handlers.CentralHandlers{
 		Config: app.config, 
 	}  
 	// pingHandlers.RegisterHandlers(e.Group("/api"))

@@ -2,6 +2,6 @@ emit:
   - "@typespec/openapi3"
 options:
   "@typespec/openapi3":
-    output-file: ../../../typespec/out/spec-server.yaml
+    output-file: ../../../typespec/out/spec-central.yaml
     openapi-versions:
       - 3.0.0

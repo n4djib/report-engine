@@ -26,9 +26,9 @@ exclude_dir = [
   "cmd/launcher",
   "cmd/nkeys-generator",
   "cmd/subject-reader",
-  # # exclude dirs of server app
-  "cmd/server",
-  "internal/api/server",
+  # # exclude dirs of central app
+  "cmd/central",
+  "internal/api/central",
 ]
 exclude_file = []
 exclude_regex = ["_test.go"]

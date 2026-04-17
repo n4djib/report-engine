@@ -1,7 +1,7 @@
 docker compose up -d
 
 
-= server:
+= central:
 nats pub test "hello"
 
 nats sub test -s nats://localhost:4222
@@ -30,7 +30,7 @@ docker logs nats-leaf2 -f
 
 docker compose -f docker/docker-compose.yaml up --build
 
-docker exec -it server-dev sh
+docker exec -it central-dev sh
     access a container CLI
 
 

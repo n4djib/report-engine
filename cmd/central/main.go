@@ -7,13 +7,13 @@ import (
 
 	"github.com/n4djib/report-engine/pkg/config"
 	// "github.com/davecgh/go-spew/spew"
-	vars "github.com/n4djib/report-engine/internal/vars/server"
+	vars "github.com/n4djib/report-engine/internal/vars/central"
 )
 
 func main() {
 	// Note: .env.local is not copied to docker
 	// .env is copied only in dev
-	configFiles := []string{"./cmd/server/env/.env", "./cmd/server/env/.env.local"}
+	configFiles := []string{"./cmd/central/env/.env", "./cmd/central/env/.env.local"}
 	// we will load the env files in the docker compose file and in the local development environment
 	// configFiles := []string{}
 
@@ -34,9 +34,9 @@ func main() {
 	go app.openBrowser(cfg.AppUrl + ":" + fmt.Sprint(cfg.AppPort) + "/api/ping")
 
 	if err := app.run(); err != nil {
-		slog.Error("server failed to start", "error", err)
+		slog.Error("Central server failed to start", "error", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("Server Ended!")
+	fmt.Println("Central Server Ended!")
 }

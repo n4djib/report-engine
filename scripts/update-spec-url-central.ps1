@@ -1,5 +1,5 @@
-$envFile = "cmd\server\env\.env"
-$targetFile = "typespec\out\spec-server.yaml"
+$envFile = "cmd\central\env\.env"
+$targetFile = "typespec\out\spec-central.yaml"
 
 # load env
 Get-Content $envFile | Where-Object {$_ -match '^[^#].+=.+'} | ForEach-Object {

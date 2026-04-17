@@ -6,10 +6,10 @@ root = "/app"
 
 [build]
 # args_bin = []
-cmd = "go build -o tmp/server/main ./cmd/server"
-bin = "tmp/server/main"
+cmd = "go build -o tmp/central/main ./cmd/central"
+bin = "tmp/central/main"
 # delay = 1000
-entrypoint = ["tmp/server/main"]
+entrypoint = ["tmp/central/main"]
 poll = true
 # poll_interval = 1000
 poll_interval = 500

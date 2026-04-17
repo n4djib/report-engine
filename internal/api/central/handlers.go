@@ -4,15 +4,15 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/n4djib/report-engine/internal/api/server/oapi-gen"
-	vars "github.com/n4djib/report-engine/internal/vars/server"
+	"github.com/n4djib/report-engine/internal/api/central/oapi-gen"
+	vars "github.com/n4djib/report-engine/internal/vars/central"
 )
 
-type ServerHandlers struct{
+type CentralHandlers struct{
 	Config vars.ConfigVars
 }
 
-func (h ServerHandlers) PingPong(ctx echo.Context) error {
+func (h CentralHandlers) PingPong(ctx echo.Context) error {
 	resp := oapi.SharedModelsPingResponse{
 		Message: "Pong from " + h.Config.AppName + "!",
 	}

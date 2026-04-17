@@ -35,9 +35,9 @@ func main() {
 	go app.openBrowser(cfg.AppUrl + ":" + fmt.Sprint(cfg.AppPort) + "/api/ping")
 
 	if err := app.run(); err != nil {
-		slog.Error("server failed to start", "error", err)
+		slog.Error("Remote server failed to start", "error", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("Hello from remote!")
+	fmt.Println("Remote Server Ended!")
 }

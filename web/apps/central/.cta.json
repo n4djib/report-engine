@@ -1,5 +1,5 @@
 {
-  "projectName": "server",
+  "projectName": "central",
   "mode": "file-router",
   "typescript": true,
   "tailwind": true,

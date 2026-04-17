@@ -25,19 +25,21 @@ goto %~1
     docker compose -f docker/docker-compose.prod.yaml up
     exit /b %errorlevel%
 
-:sd
-    echo === Server dev ===
-    echo Watch Server in Air... 
+:cd
+    echo === Central dev ===
+    echo Watch Central in Air... 
     :: Add your build commands here
-    air -c .\.air-server.toml
-    @REM start air -c .\.air-server.toml
+    @REM air -c .\.air-central.toml
+    @REM start air -c .\.air-central.toml
+    go run .\cmd\central\
     exit /b %errorlevel%
 
 :rd
     echo === Remote dev ===
     echo Watch Remote in Air... 
     :: Add your build commands here
-    air -c .\.air-remote.toml
+    @REM air -c .\.air-remote.toml
+    go run .\cmd\remote\
     exit /b %errorlevel%
 
 :nk
@@ -54,12 +56,12 @@ goto %~1
     go run .\cmd\nkeys-generator\
     exit /b %errorlevel%
 
-:sf
-    echo === Server Frontend  dev ===
-    echo Running Server Frontend... 
+:cf
+    echo === Central Frontend  dev ===
+    echo Running Central Frontend... 
     :: Add your build commands here
-    @REM pnpm --filter ./web/apps/server dev
-    pnpm --filter server dev
+    @REM pnpm --filter ./web/apps/central dev
+    pnpm --filter central dev
     exit /b %errorlevel%
 
 :rf
@@ -82,13 +84,13 @@ goto %~1
     echo Generating API Spec and Code... 
     :: Add your build commands here
         @REM this generates typespec/spec.yaml
-        cmd /c scripts\spec-gen-server.bat
+        cmd /c scripts\spec-gen-central.bat
         cmd /c scripts\spec-gen-remote.bat
         @REM this generates the GO API code in 
-        cmd /c scripts\oapi-codegen-server.bat
+        cmd /c scripts\oapi-codegen-central.bat
         cmd /c scripts\oapi-codegen-remote.bat
         @REM Generate the client API code in
-        cmd /c scripts\update-client-api-server.bat
+        cmd /c scripts\update-client-api-central.bat
         cmd /c scripts\update-client-api-remote.bat
     exit /b %errorlevel%
 
@@ -105,8 +107,8 @@ goto %~1
     echo   nkeys    - Generate Key Pair using nkeys (GO app)
     echo   ---      - - - - - - - - - - - - - - - -
     echo   ---      - depricated commands (replaced by docker compose and air)
-    echo   sd       - launch Serve in Air
+    echo   cd       - launch Central in Air
     echo   rd       - launch Remote in Air
-    echo   sf       - launch server frontend dev server
-    echo   rf       - launch remote frontend dev server
+    echo   cf       - launch Central frontend dev central
+    echo   rf       - launch Remote frontend dev central
     exit /b 0

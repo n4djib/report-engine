@@ -22,5 +22,5 @@ func main() {
 	// }
 
 	fmt.Println("Private key (keep it secret):", string(seed))
-	fmt.Println("Public key (send to server):", pub)
+	fmt.Println("Public key (send to central):", pub)
 }

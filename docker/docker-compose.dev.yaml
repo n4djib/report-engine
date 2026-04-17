@@ -19,28 +19,28 @@ x-front-dev-base: &front
     - /app/node_modules
 
 services:
-  server-dev:
+  central-dev:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-server.dev
-    container_name: server-dev
+      dockerfile: docker/Dockerfile-central.dev
+    container_name: central-dev
     working_dir: /app
     ports:
       - "8080:8080"
     env_file:
-      - ../cmd/server/env/.env.local
+      - ../cmd/central/env/.env.local
     environment:
       - APP_PORT=8080
-      - APP_NAME=Development Server
+      - APP_NAME=Development Central
     volumes:
-      - ../cmd/server/main.go:/app/cmd/server/main.go
-      - ../cmd/server/app.go:/app/cmd/server/app.go
-      - /app/cmd/server/env # exclide env files
-      - ../cmd/server/env/.env:/app/cmd/server/env/.env
-      - ../internal/api/server:/app/internal/api/server
-      - ../internal/vars/server:/app/internal/vars/server
+      - ../cmd/central/main.go:/app/cmd/central/main.go
+      - ../cmd/central/app.go:/app/cmd/central/app.go
+      - /app/cmd/central/env # exclide env files
+      - ../cmd/central/env/.env:/app/cmd/central/env/.env
+      - ../internal/api/central:/app/internal/api/central
+      - ../internal/vars/central:/app/internal/vars/central
       - ../pkg:/app/pkg
-      - ../docker/.air-server-docker.toml:/app/.air-server-docker.toml
+      - ../docker/.air-central-docker.toml:/app/.air-central-docker.toml
 
   remote-dev-1:
     <<: *remote
@@ -60,20 +60,20 @@ services:
     ports:
       - "8082:8082"
 
-  server-front-dev:
+  central-front-dev:
     <<: *front
-    container_name: server-front-dev
+    container_name: central-front-dev
     ports:
       - "3000:3000"
     command: >
-      sh -c "pnpm install && pnpm --filter ./apps/server dev"
+      sh -c "pnpm install && pnpm --filter ./apps/central dev"
     environment:
       - VITE_FRONT_PORT=3000
       - CI=true
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     depends_on:
-      - server-dev
+      - central-dev
 
   remote-front-dev-1:
     <<: *front
