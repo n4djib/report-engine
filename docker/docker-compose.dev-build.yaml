@@ -1,12 +1,12 @@
 services:
-  remote-build:
+  back-remote-build:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-remote.dev
-    image: remote-build-dev:latest
+      dockerfile: docker/Dockerfile-backend-remote.dev
+    image: back-remote-dev-build:latest
 
   front-build:
     build:
       context: ../web
       dockerfile: ../docker/Dockerfile.frontend.dev
-    image: front-build-dev:latest
+    image: front-dev-build:latest

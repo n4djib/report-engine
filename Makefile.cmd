@@ -106,9 +106,9 @@ goto %~1
     echo   nk       - Generate Key Pair (nk Util)
     echo   nkeys    - Generate Key Pair using nkeys (GO app)
     echo   ---      - - - - - - - - - - - - - - - -
-    echo   ---      - depricated commands (replaced by docker compose and air)
-    echo   cd       - launch Central in Air
-    echo   rd       - launch Remote in Air
+    echo   ---      - depricated commands (replaced by docker compose and air) (# TODO to be removed)
+    echo   cd       - launch Central backend
+    echo   rd       - launch Remote backend
     echo   cf       - launch Central frontend dev central
     echo   rf       - launch Remote frontend dev central
     exit /b 0

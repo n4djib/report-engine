@@ -1,16 +1,16 @@
 x-remote-base: &remote
-  image: remote-build-prod:latest
+  image: back-remote-prod-build:latest
   working_dir: /app
   env_file:
     - ../cmd/remote/env/.env
     - ../cmd/remote/env/.env.local
 
 services:
-  central-prod:
+  back-central-prod:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-central.prod
-    container_name: central-prod
+      dockerfile: docker/Dockerfile-backend-central.prod
+    container_name: back-central-prod
     working_dir: /app
     ports:
       - "8080:8080"
@@ -21,23 +21,25 @@ services:
       - APP_PORT=8080
       - APP_NAME=Production Central
 
-  remote-1:
+  back-remote-prod-1:
     <<: *remote
-    container_name: remote-1-prod
+    container_name: back-remote-prod-1
     ports:
       - "8081:8081"
     environment:
       - APP_PORT=8081
       - APP_NAME=Production Remote-1
 
-  remote-2:
+  back-remote-prod-2:
     <<: *remote
-    container_name: remote-2-prod
+    container_name: back-remote-prod-2
     ports:
       - "8082:8082"
     environment:
       - APP_PORT=8082
       - APP_NAME=Production Remote-2
+
+  # TODO fproduction Frontend
 
   # hub:
   #   image: nats:latest

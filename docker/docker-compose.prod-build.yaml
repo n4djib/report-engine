@@ -1,6 +1,6 @@
 services:
-  remote-build:
+  back-remote-build:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-remote.prod
-    image: remote-build-prod:latest
+      dockerfile: docker/Dockerfile-backend-remote.prod
+    image: back-remote-prod-build:latest

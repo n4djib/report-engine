@@ -1,5 +1,5 @@
-x-remote-dev-base: &remote
-  image: remote-build-dev:latest
+x-back-remote-dev-base: &back-remote
+  image: back-remote-dev-build:latest
   working_dir: /app
   env_file:
     - ../cmd/remote/env/.env.local
@@ -13,17 +13,17 @@ x-remote-dev-base: &remote
     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
 
 x-front-dev-base: &front
-  image: front-build-dev:latest
+  image: front-dev-build:latest
   volumes:
     - ../web:/app
     - /app/node_modules
 
 services:
-  central-dev:
+  back-central-dev:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-central.dev
-    container_name: central-dev
+      dockerfile: docker/Dockerfile-backend-central.dev
+    container_name: back-central-dev
     working_dir: /app
     ports:
       - "8080:8080"
@@ -42,27 +42,27 @@ services:
       - ../pkg:/app/pkg
       - ../docker/.air-central-docker.toml:/app/.air-central-docker.toml
 
-  remote-dev-1:
-    <<: *remote
-    container_name: remote-1-dev
+  back-remote-dev-1:
+    <<: *back-remote
+    container_name: back-remote-dev-1
     environment:
       - APP_PORT=8081
       - APP_NAME=Development Remote-1
     ports:
       - "8081:8081"
 
-  remote-dev-2:
-    <<: *remote
-    container_name: remote-2-dev
-    environment:
-      - APP_PORT=8082
-      - APP_NAME=Development Remote-2
-    ports:
-      - "8082:8082"
+  # back-remote-dev-2:
+  #   <<: *back-remote
+  #   container_name: back-remote-dev-2
+  #   environment:
+  #     - APP_PORT=8082
+  #     - APP_NAME=Development Remote-2
+  #   ports:
+  #     - "8082:8082"
 
-  central-front-dev:
+  front-central-dev:
     <<: *front
-    container_name: central-front-dev
+    container_name: front-central-dev
     ports:
       - "3000:3000"
     command: >
@@ -73,11 +73,11 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     depends_on:
-      - central-dev
+      - back-central-dev
 
-  remote-front-dev-1:
+  front-remote-dev-1:
     <<: *front
-    container_name: remote-front-1-dev
+    container_name: front-remote-dev-1
     ports:
       - "3001:3001"
     command: >
@@ -88,22 +88,22 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     depends_on:
-      - remote-dev-1
+      - back-remote-dev-1
 
-  remote-front-dev-2:
-    <<: *front
-    container_name: remote-front-2-dev
-    ports:
-      - "3002:3002"
-    command: >
-      sh -c "pnpm install && pnpm --filter remote dev"
-    environment:
-      - VITE_FRONT_PORT=3002
-      - CI=true
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true
-    depends_on:
-      - remote-dev-2
+  # front-remote-dev-2:
+  #   <<: *front
+  #   container_name: front-remote-dev-2
+  #   ports:
+  #     - "3002:3002"
+  #   command: >
+  #     sh -c "pnpm install && pnpm --filter remote dev"
+  #   environment:
+  #     - VITE_FRONT_PORT=3002
+  #     - CI=true
+  #     - CHOKIDAR_USEPOLLING=true
+  #     - WATCHPACK_POLLING=true
+  #   depends_on:
+  #     - back-remote-dev-2
 
   # hub:
   #   image: nats:latest
