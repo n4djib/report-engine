@@ -27,7 +27,7 @@ goto %~1
 
 :cd
     echo === Central dev ===
-    echo Watch Central in Air... 
+    @REM echo Watch Central in Air... 
     :: Add your build commands here
     @REM air -c .\.air-central.toml
     @REM start air -c .\.air-central.toml
@@ -36,7 +36,7 @@ goto %~1
 
 :rd
     echo === Remote dev ===
-    echo Watch Remote in Air... 
+    @REM echo Watch Remote in Air... 
     :: Add your build commands here
     @REM air -c .\.air-remote.toml
     go run .\cmd\remote\
@@ -60,16 +60,14 @@ goto %~1
     echo === Central Frontend  dev ===
     echo Running Central Frontend... 
     :: Add your build commands here
-    @REM pnpm --filter ./web/apps/central dev
-    pnpm --filter central dev
+    pnpm -C web --filter central dev
     exit /b %errorlevel%
 
 :rf
     echo === Remote Frontend  dev ===
     echo Running Remote Frontend... 
     :: Add your build commands here
-    @REM pnpm --filter ./web/apps/remote dev
-    pnpm --filter remote dev
+    pnpm -C web --filter remote dev
     exit /b %errorlevel%
     
 :flint

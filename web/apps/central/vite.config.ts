@@ -7,7 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  // console.log("\n", env.VITE_API_URL, "\n");
+  // console.log("\n ----------", env.VITE_API_URL, "\n");
+  // console.log(" ----------", env.VITE_FRONT_PORT, "\n");
 
   return defineConfig({
     resolve: { tsconfigPaths: true },
@@ -18,6 +19,7 @@ export default ({ mode }: { mode: string }) => {
       viteReact(),
     ],
     server: {
+      port: Number(env.VITE_FRONT_PORT),
       proxy: {
         // "/api": {
         //   target: env.VITE_API_URL,
