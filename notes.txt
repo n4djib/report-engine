@@ -83,3 +83,15 @@ web> pnpm add @types/react
 pnpm --filter central dev
 pnpm --filter remote dev
 
+
+
+== pnpm 
+pnpm -C web --filter central dev
+
+== pnpm build
+pnpm -C web --filter central build
+
+== pnpm preview
+pnpm -C web --filter central preview --port 3000
+
+

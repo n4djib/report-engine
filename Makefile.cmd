@@ -92,6 +92,30 @@ goto %~1
         cmd /c scripts\update-client-api-remote.bat
     exit /b %errorlevel%
 
+:cb
+    echo === Central Frontend build ===
+    echo Building... 
+    pnpm -C web --filter central build
+    exit /b %errorlevel%
+    
+:cp
+    echo === Central Frontend preview ===
+    echo Previewing... 
+    pnpm -C web --filter central preview --port 4000
+    exit /b %errorlevel%
+    
+:rb
+    echo === Remote Frontend build ===
+    echo Building... 
+    pnpm -C web --filter remote build
+    exit /b %errorlevel%
+    
+:rp
+    echo === Remote Frontend preview ===
+    echo Previewing... 
+    pnpm -C web --filter remote preview --port 4001
+    exit /b %errorlevel%
+
 :help
     echo Usage: Makefile [command]
     echo.
@@ -109,4 +133,9 @@ goto %~1
     echo   rd       - launch Remote backend
     echo   cf       - launch Central frontend dev central
     echo   rf       - launch Remote frontend dev central
+    echo   ---      - - - - - - - - - - - - - - - -
+    echo   cb       - Build central frontend
+    echo   cp       - Preview central frontend
+    echo   rb       - Build remote frontend
+    echo   rp       - Preview remote frontend
     exit /b 0
