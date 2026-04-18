@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	// "github.com/labstack/echo/v4/middleware"
 	handlers "github.com/n4djib/report-engine/internal/api/central"
 	"github.com/n4djib/report-engine/internal/api/central/oapi-gen"
 	vars "github.com/n4djib/report-engine/internal/vars/central"
@@ -27,7 +26,6 @@ func NewApplication(config vars.ConfigVars) *Application {
 
 func (app Application) run() error {
 	e := echo.New()
-	useCORSMiddleware(e)
 
 	pingHandlers := handlers.CentralHandlers{
 		Config: app.config, 
@@ -42,7 +40,10 @@ func (app Application) run() error {
 	}
 	// swagger.RegisterSwagger(e.Group("/"))
 	// TODO protect this API
+	// how to server swagger through the frontend app
 	swagger.RegisterSwagger(e, spec)
+	
+	// app.useCORSMiddleware(e)
 
 	fmt.Println("⇨ Starting App:", app.config.AppName)
 	e.HideBanner = app.config.HideBanner
@@ -59,11 +60,12 @@ func (app Application) openBrowser(url string) {
 	}
 }
 
-func useCORSMiddleware(e *echo.Echo) {
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		// AllowOrigins: []string{"http://localhost:3000"},
-		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-	}))
-}
+// func (app Application) useCORSMiddleware(e *echo.Echo) {
+// 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+// 		// AllowOrigins: []string{"*"},
+// 		// AllowOrigins: []string{"http://localhost:3000"},
+// 		AllowOrigins: []string{app.config.AllowOrigins},
+// 		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+// 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+// 	}))
+// }

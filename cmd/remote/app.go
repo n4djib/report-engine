@@ -27,7 +27,7 @@ func NewApplication(config vars.ConfigVars) *Application {
 
 func (app Application) run() error {
 	e := echo.New()
-	useCORSMiddleware(e)
+	app.useCORSMiddleware(e)
 
 	pingHandlers := handlers.RemoteHandlers{
 		Config: app.config, 
@@ -59,10 +59,11 @@ func (app Application) openBrowser(url string) {
 	}
 }
 
-func useCORSMiddleware(e *echo.Echo) {
+func (app Application) useCORSMiddleware(e *echo.Echo) {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
+		// AllowOrigins: []string{"*"},
 		// AllowOrigins: []string{"http://localhost:3000"},
+		AllowOrigins: []string{app.config.AppUrl + ":" + strconv.Itoa(app.config.AppPort)},
 		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))

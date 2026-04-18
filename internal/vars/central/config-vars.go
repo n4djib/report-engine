@@ -4,6 +4,7 @@ type ConfigVars struct {
 	AppName string `env:"APP_NAME" envDefault:"Report Engine Central"`
 	AppUrl  string `env:"APP_URL" envDefault:"http://localhost"`
 	AppPort int    `env:"APP_PORT" envDefault:"8080"`
+	// AllowOrigins string `env:"ALLOW_ORIGINS" envDefault:"http://localhost:8080"`
 	// ActivateUrl string `env:"ACTIVATION_URL,required"`
 	// PasswordlessUrl    string `env:"PASSWORDLESS_URL,required"`
 	// DBUrl              string `env:"DATABASE_URL" envDefault:"./database.db"`

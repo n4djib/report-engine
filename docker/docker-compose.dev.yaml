@@ -42,14 +42,14 @@ services:
       - ../pkg:/app/pkg
       - ../docker/.air-central-docker.toml:/app/.air-central-docker.toml
 
-  back-remote-dev-1:
-    <<: *back-remote
-    container_name: back-remote-dev-1
-    environment:
-      - APP_PORT=8081
-      - APP_NAME=Development Remote-1
-    ports:
-      - "8081:8081"
+  # back-remote-dev-1:
+  #   <<: *back-remote
+  #   container_name: back-remote-dev-1
+  #   environment:
+  #     - APP_PORT=8081
+  #     - APP_NAME=Development Remote-1
+  #   ports:
+  #     - "8081:8081"
 
   # back-remote-dev-2:
   #   <<: *back-remote
@@ -72,23 +72,24 @@ services:
       - CI=true
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+      - VITE_API_URL=http://back-central-dev:8080 # used in vite proxy
     depends_on:
       - back-central-dev
 
-  front-remote-dev-1:
-    <<: *front
-    container_name: front-remote-dev-1
-    ports:
-      - "3001:3001"
-    command: >
-      sh -c "pnpm install && pnpm --filter remote dev"
-    environment:
-      - VITE_FRONT_PORT=3001
-      - CI=true
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true
-    depends_on:
-      - back-remote-dev-1
+  # front-remote-dev-1:
+  #   <<: *front
+  #   container_name: front-remote-dev-1
+  #   ports:
+  #     - "3001:3001"
+  #   command: >
+  #     sh -c "pnpm install && pnpm --filter remote dev"
+  #   environment:
+  #     - VITE_FRONT_PORT=3001
+  #     - CI=true
+  #     - CHOKIDAR_USEPOLLING=true
+  #     - WATCHPACK_POLLING=true
+  #   depends_on:
+  #     - back-remote-dev-1
 
   # front-remote-dev-2:
   #   <<: *front
