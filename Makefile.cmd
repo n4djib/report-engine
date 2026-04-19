@@ -15,59 +15,18 @@ goto %~1
 :dcd
     echo === docker-compose dev ===
     echo Spinning Up... 
+    cmd /c scripts\build-and-move-front-central.cmd
+    cmd /c scripts\build-and-move-front-remote.cmd
     docker compose -f docker/docker-compose.dev-build.yaml build
     docker compose -f docker/docker-compose.dev.yaml up
     exit /b %errorlevel%
 :dcp
     echo === docker-compose prod ===
     echo Spinning Up...
+    cmd /c scripts\build-and-move-front-central.cmd
+    cmd /c scripts\build-and-move-front-remote.cmd
     docker compose -f docker/docker-compose.prod-build.yaml build
     docker compose -f docker/docker-compose.prod.yaml up
-    exit /b %errorlevel%
-
-:cd
-    echo === Central dev ===
-    @REM echo Watch Central in Air... 
-    :: Add your build commands here
-    @REM air -c .\.air-central.toml
-    @REM start air -c .\.air-central.toml
-    go run .\cmd\central\
-    exit /b %errorlevel%
-
-:rd
-    echo === Remote dev ===
-    @REM echo Watch Remote in Air... 
-    :: Add your build commands here
-    @REM air -c .\.air-remote.toml
-    go run .\cmd\remote\
-    exit /b %errorlevel%
-
-:nk
-    echo === Generate with NK ===
-    echo Generating Key Pair... 
-    :: Add your build commands here
-    nk -gen user -pubout
-    exit /b %errorlevel%
-
-:nkeys
-    echo === Generate Key Pair ===
-    echo Generating Key Pair... 
-    :: Add your build commands here
-    go run .\cmd\nkeys-generator\
-    exit /b %errorlevel%
-
-:cf
-    echo === Central Frontend  dev ===
-    echo Running Central Frontend... 
-    :: Add your build commands here
-    pnpm -C web --filter central dev
-    exit /b %errorlevel%
-
-:rf
-    echo === Remote Frontend  dev ===
-    echo Running Remote Frontend... 
-    :: Add your build commands here
-    pnpm -C web --filter remote dev
     exit /b %errorlevel%
     
 :flint
@@ -92,27 +51,76 @@ goto %~1
         cmd /c scripts\update-client-api-remote.bat
     exit /b %errorlevel%
 
+:nk
+    echo === Generate with NK ===
+    echo Generating Key Pair... 
+    :: Add your build commands here
+    nk -gen user -pubout
+    exit /b %errorlevel%
+
+:nkeys
+    echo === Generate Key Pair ===
+    echo Generating Key Pair... 
+    :: Add your build commands here
+    go run .\cmd\nkeys-generator\
+    exit /b %errorlevel%
+
+
+:cd
+    echo === Central dev ===
+    @REM echo Watch Central in Air... 
+    :: Add your build commands here
+    @REM air -c .\.air-central.toml
+    @REM start air -c .\.air-central.toml
+    go run .\cmd\central\
+    exit /b %errorlevel%
+
+:rd
+    echo === Remote dev ===
+    @REM echo Watch Remote in Air... 
+    :: Add your build commands here
+    @REM air -c .\.air-remote.toml
+    go run .\cmd\remote\
+    exit /b %errorlevel%
+
+:cf
+    echo === Central Frontend  dev ===
+    echo Running Central Frontend... 
+    :: Add your build commands here
+    pnpm -C web --filter central dev
+    exit /b %errorlevel%
+
+:rf
+    echo === Remote Frontend  dev ===
+    echo Running Remote Frontend... 
+    :: Add your build commands here
+    pnpm -C web --filter remote dev
+    exit /b %errorlevel%
+
 :cb
     echo === Central Frontend build ===
     echo Building... 
-    pnpm -C web --filter central build
+    @REM pnpm -C web --filter central build
+    cmd /c scripts\build-and-move-front-central.cmd
     exit /b %errorlevel%
     
 :cp
     echo === Central Frontend preview ===
-    echo Previewing... 
+    echo Building & Previewing... 
+    cmd /c scripts\build-and-move-front-central.cmd
     pnpm -C web --filter central preview --port 4000
     exit /b %errorlevel%
     
 :rb
     echo === Remote Frontend build ===
     echo Building... 
-    pnpm -C web --filter remote build
+    cmd /c scripts\build-and-move-front-remote.cmd
     exit /b %errorlevel%
     
 :rp
     echo === Remote Frontend preview ===
-    echo Previewing... 
+    echo Building & Previewing... 
+    cmd /c scripts\build-and-move-front-remote.cmd
     pnpm -C web --filter remote preview --port 4001
     exit /b %errorlevel%
 

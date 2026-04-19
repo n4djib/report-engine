@@ -9,6 +9,7 @@ import (
 	// "github.com/labstack/echo/v4/middleware"
 	handlers "github.com/n4djib/report-engine/internal/api/central"
 	"github.com/n4djib/report-engine/internal/api/central/oapi-gen"
+	frontendembed "github.com/n4djib/report-engine/internal/embed/central"
 	vars "github.com/n4djib/report-engine/internal/vars/central"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
@@ -42,10 +43,14 @@ func (app Application) run() error {
 	// TODO protect this API
 	// how to server swagger through the frontend app
 	swagger.RegisterSwagger(e, spec)
+
+	// register react static pages build from react tanstack router
+	frontendembed.RegisterHandlers(e)
 	
+	// middlewares
 	// app.useCORSMiddleware(e)
 
-	fmt.Println("⇨ Starting App:", app.config.AppName)
+	fmt.Println("⇨ Starting Central App:", app.config.AppName)
 	e.HideBanner = app.config.HideBanner
 	e.HidePort = app.config.HidePort
 

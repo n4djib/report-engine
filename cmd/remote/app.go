@@ -3,13 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	handlers "github.com/n4djib/report-engine/internal/api/remote"
 	"github.com/n4djib/report-engine/internal/api/remote/oapi-gen"
+	frontendembed "github.com/n4djib/report-engine/internal/embed/remote"
 	vars "github.com/n4djib/report-engine/internal/vars/remote"
 	"github.com/n4djib/report-engine/pkg/swagger"
 	utilities "github.com/n4djib/report-engine/pkg/utils"
@@ -27,7 +26,6 @@ func NewApplication(config vars.ConfigVars) *Application {
 
 func (app Application) run() error {
 	e := echo.New()
-	app.useCORSMiddleware(e)
 
 	pingHandlers := handlers.RemoteHandlers{
 		Config: app.config, 
@@ -42,7 +40,14 @@ func (app Application) run() error {
 	}
 	// swagger.RegisterSwagger(e.Group("/"))
 	// TODO protect this API
+	// how to server swagger through the frontend app
 	swagger.RegisterSwagger(e, spec)
+
+	// register react static pages build from react tanstack router
+	frontendembed.RegisterHandlers(e)
+	
+	// middlewares
+	// app.useCORSMiddleware(e)
 
 	fmt.Println("⇨ Starting App:", app.config.AppName)
 	e.HideBanner = app.config.HideBanner
@@ -59,12 +64,12 @@ func (app Application) openBrowser(url string) {
 	}
 }
 
-func (app Application) useCORSMiddleware(e *echo.Echo) {
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		// AllowOrigins: []string{"*"},
-		// AllowOrigins: []string{"http://localhost:3000"},
-		AllowOrigins: []string{app.config.AppUrl + ":" + strconv.Itoa(app.config.AppPort)},
-		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-	}))
-}
+// func (app Application) useCORSMiddleware(e *echo.Echo) {
+// 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+// 		// AllowOrigins: []string{"*"},
+// 		// AllowOrigins: []string{"http://localhost:3000"},
+// 		AllowOrigins: []string{app.config.AppUrl + ":" + strconv.Itoa(app.config.AppPort)},
+// 		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+// 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+// 	}))
+// }
