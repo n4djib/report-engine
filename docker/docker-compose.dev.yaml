@@ -11,6 +11,7 @@ x-back-remote-dev-base: &back-remote
     - ../internal/vars/remote:/app/internal/vars/remote
     - ../pkg:/app/pkg
     - ../docker/.air-remote-docker.toml:/app/.air-remote-docker.toml
+      - ../internal/embed:/app/internal/embed
 
 x-front-dev-base: &front
   image: front-dev-build:latest
@@ -42,8 +43,7 @@ services:
       - ../pkg:/app/pkg
       # FIXME remove ../docker
       - ../docker/.air-central-docker.toml:/app/.air-central-docker.toml
-      # include the embeded files
-      - ../internal/embed/central:/app/internal/embed/central
+      - ../internal/embed:/app/internal/embed
 
   # back-remote-dev-1:
   #   <<: *back-remote

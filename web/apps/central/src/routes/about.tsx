@@ -5,5 +5,5 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
-  return <main className="page-wrap px-4 py-12">about central</main>;
+  return <main className="">about central</main>;
 }
