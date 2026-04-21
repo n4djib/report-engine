@@ -20,6 +20,7 @@ goto %~1
     docker compose -f docker/docker-compose.dev-build.yaml build
     docker compose -f docker/docker-compose.dev.yaml up
     exit /b %errorlevel%
+
 :dcp
     echo === docker-compose prod ===
     echo Spinning Up...
@@ -28,7 +29,13 @@ goto %~1
     docker compose -f docker/docker-compose.prod-build.yaml build
     docker compose -f docker/docker-compose.prod.yaml up
     exit /b %errorlevel%
-    
+
+:nats
+    echo === docker-compose nats ===
+    echo Spinning Up NATS... 
+    docker compose -f docker/docker-compose.nats.yaml up
+    exit /b %errorlevel%
+
 :flint
     echo === Lint Frontends ===
     echo linting Frontends... 
