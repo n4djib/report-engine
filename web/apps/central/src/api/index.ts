@@ -1,1 +1,0 @@
-export { PingApi } from "./ping";

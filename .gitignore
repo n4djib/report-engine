@@ -1,14 +1,6 @@
-*.local
-*.nkey
-*.gen.go
-spec-*.yaml
+secrets/
+dist/
+*.exe
+node_modules/
+pb_data/
 
-web/.pnpm-store
-
-node_modules
-.DS_Store
-dist
-dist-ssr
-.nitro
-.wrangler
-.output

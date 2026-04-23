@@ -1,7 +1,0 @@
-emit:
-  - "@typespec/openapi3"
-options:
-  "@typespec/openapi3":
-    output-file: ../../../typespec/out/spec-remote.yaml
-    openapi-versions:
-      - 3.0.0
