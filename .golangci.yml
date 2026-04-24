@@ -1,0 +1,37 @@
+# This configures which linters run and how.
+
+run:
+  timeout: 5m
+  # Test files are linted separately from production code
+  tests: true
+
+linters:
+  enable:
+    - errcheck      # Catches: ignored error return values (most common Go bug)
+    - govet         # Catches: misuse of sync.Mutex, printf format errors, etc.
+    - staticcheck   # Comprehensive static analysis
+    - gosimple      # Suggests simpler code patterns
+    - ineffassign   # Catches: assigned variable never used
+    - unused        # Catches: unused code
+    - gofmt         # Enforces standard Go formatting
+    - goimports     # Keeps imports organised and adds missing stdlib imports
+    - gosec         # Security-focused checks
+    - revive        # Style checks (exported functions need comments, etc.)
+
+linters-settings:
+  gosec:
+    excludes:
+      - G304  # File path from variable — acceptable for config loading
+      - G401  # Use of weak cryptographic primitive — we know what we're doing
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
+
+issues:
+  # Don't fail on TODO comments
+  exclude-rules:
+    - text: "TODO"
+      linters: [godot]

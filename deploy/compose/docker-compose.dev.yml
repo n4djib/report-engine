@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: report_dev
+      POSTGRES_USER: reporter_dev
+      POSTGRES_PASSWORD: devpassword123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      # Mounts the init script to run on the very first boot
+      - ./init-pgbouncer.sql:/docker-entrypoint-initdb.d/init-pgbouncer.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U reporter_dev -d report_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    restart: unless-stopped
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=report_dev
+      # 1. ADD THIS: Tell PgBouncer to use our lookup user for the backend connection
+      - DB_USER=pgbouncer_auth
+      - DB_PASSWORD=auth_pass_123
+      
+      - AUTH_TYPE=scram-sha-256
+      - AUTH_USER=pgbouncer_auth
+      - AUTH_QUERY=SELECT usename, passwd FROM public.lookup_auth($1)
+      - AUTH_FILE_CONTENT="pgbouncer_auth" "auth_pass_123"
+      - LISTEN_ADDR=0.0.0.0
+      - POOL_MODE=transaction
+      - IGNORE_STARTUP_PARAMETERS=extra_float_digits,search_path
+    ports:
+      - "6432:5432"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nats:
+    image: nats:2.10-alpine
+    restart: unless-stopped
+    command: "--jetstream --store_dir=/data -p 4222 -m 8222"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - nats_dev_data:/data
+
+volumes:
+  postgres_dev_data:
+  nats_dev_data:
+

@@ -1,6 +1,31 @@
+# Secrets — never commit these
+deploy/compose/secrets/
 secrets/
+*.pem
+*.pfx
+
+# Build artifacts
 dist/
 *.exe
-node_modules/
-pb_data/
+*.dll
 
+# Go
+*.test
+coverage.out
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# BadgerDB local data
+*.vlog
+*.sst
+MANIFEST
+LOCK
+KEYREGISTRY
+
+# IDE
+.idea/
+.vscode/
+*.swp

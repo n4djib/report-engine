@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 
-	"github.com/jackc/pgx"
+	"github.com/jackc/pgx/v5"
 )
 
 func sectionLocKey(reportID, sectionKey string) int64 {
@@ -15,8 +15,6 @@ func sectionLocKey(reportID, sectionKey string) int64 {
 
 func AcquireSectionLock(ctx context.Context, conn *pgx.Conn, reportID, sectionKey string) (bool, error) {
 	var acquired bool
-	err := conn.QueryRow(ctx,
-		"SELECT pg_try_advisory_xact_lock($1)",
-		sectionLocKey(reportID, sectionKey)).Scan(&acquired)
+	err := conn.QueryRow(ctx, "SELECT pg_try_advisory_xact_lock($1)", sectionLocKey(reportID, sectionKey)).Scan(&acquired)
 	return acquired, err
 }
