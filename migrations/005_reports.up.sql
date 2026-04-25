@@ -1,5 +1,5 @@
 
-CREATE TABLE NOT EXISTS reports (
+CREATE TABLE IF NOT EXISTS reports (
   id   UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
   report_id  VARCHAR(255) NOT NULL,
   org_id    UUID   NOT NULL REFERENCES organisations(id) ON DELETE CASCADE,

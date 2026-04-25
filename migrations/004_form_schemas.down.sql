@@ -1,1 +1,1 @@
-DROP TABLE NOT EXISTS form_schemas ;
+DROP TABLE IF EXISTS form_schemas ;

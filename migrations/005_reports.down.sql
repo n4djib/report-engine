@@ -1,1 +1,1 @@
-DROP TABLE NOT EXISTS reports ;
+DROP TABLE IF EXISTS reports ;

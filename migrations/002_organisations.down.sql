@@ -1,2 +1,2 @@
-DROP TABLE IF NOT EXISTS organisations;
+DROP TABLE IF EXISTS organisations;
 

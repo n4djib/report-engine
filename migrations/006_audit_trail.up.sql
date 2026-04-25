@@ -13,7 +13,7 @@
 -- 3. Row-Level Security: The application role (report-engine_app) can INSERT
 --    but cannot UPDATE or DELETE. PostgreSQL enforces this.
 
-CREATE TABLE NOT EXISTS audit_trail (
+CREATE TABLE IF NOT EXISTS audit_trail (
     id          BIGSERIAL    PRIMARY KEY,
     timestamp   TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
     report_id   VARCHAR(255) NOT NULL,

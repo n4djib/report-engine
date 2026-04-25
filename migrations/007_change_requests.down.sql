@@ -1,1 +1,1 @@
-DROP TABLE IF NOT EXISTS change_requests ;
+DROP TABLE IF EXISTS change_requests ;

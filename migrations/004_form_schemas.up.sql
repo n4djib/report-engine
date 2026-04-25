@@ -1,5 +1,5 @@
 
-CREATE TABLE NOT EXISTS form_schemas (
+CREATE TABLE IF NOT EXISTS form_schemas (
   id    UUID   PRIMARY KEY DEFAULT gen_random_uuid(),
   schema_id  VARCHAR(255) NOT NULL,
   version  INTEGER NOT NULL,

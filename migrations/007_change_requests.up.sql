@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS change_requests (
   requested_by   UUID NOT NULL REFERENCES users(id),
   reason    TEXT NOT NULL,
   status    VARCHAR(50) NOT NULL DEFAULT 'pending'
-            CHECK (status IN('pending', 'approved', 'denied'))
+            CHECK (status IN('pending', 'approved', 'denied')),
   reviewed_by   UUID  REFERENCES users (id),
   review_note   TEXT,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),

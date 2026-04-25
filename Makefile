@@ -10,6 +10,9 @@ dev-up:
 dev-down:
 	docker compose -f deploy/compose/docker-compose.dev.yml down
 
+dev-down-clean:
+	docker compose -f deploy/compose/docker-compose.dev.yml down -v
+
 dev-logs:
 	docker compose -f deploy/compose/docker-compose.dev.yml logs -f
 
