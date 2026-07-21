@@ -13,6 +13,8 @@ type CentralHandlers struct{
 }
 
 func (h CentralHandlers) PingPong(ctx echo.Context) error {
+	// TODO handle gracefull shutdown in handlers
+	
 	resp := oapi.SharedModelsPingResponse{
 		Message: "Pong from " + h.Config.AppName + "!",
 	}

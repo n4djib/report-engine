@@ -138,6 +138,7 @@ goto %~1
     echo   spec-gen - Generate API Spec and Code
     echo   dcd      - Spinning Up docker services (development)
     echo   dcp      - Spinning Up docker services (production)
+    echo   nats     - Spinning Up nats docker
     echo   flint    - Lint frontend code 
     echo   ---      - - - - - - - - - - - - - - - -
     echo   nk       - Generate Key Pair (nk Util)

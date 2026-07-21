@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/n4djib/report-engine/pkg/config"
 	// "github.com/davecgh/go-spew/spew"
@@ -26,15 +29,19 @@ func main() {
 	// log the config struct
 	// spew.Dump(cfg)
 
-	app := NewApplication(cfg)
+	app, err := NewApplication(cfg)
 
 	// TODO we should open to the frontend app not the api
 	// add env var ponting to frontend url and open that instead
 	// open browser to APP url
 	go app.openBrowser(cfg.AppUrl + ":" + fmt.Sprint(cfg.AppPort) + "/api/ping")
 
-	if err := app.run(); err != nil {
-		slog.Error("Central server failed to start", "error", err)
+	// root context canceled on Ctrl+C or SIGTERM
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	if err := app.run(ctx); err != nil {
+		slog.Error("Central app failed to run", "error", err)
 		os.Exit(1)
 	}
 

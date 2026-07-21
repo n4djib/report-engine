@@ -6,38 +6,51 @@ services:
       - "4222:4222" # hub client port
       - "8222:8222" # hub monitoring
       - "7422:7422" # leafnode port
+    configs:
+      # Inject the config object into the container file system
+      - source: hub_config
+        target: /etc/nats/hub.conf
     volumes:
-      - ./hub.conf:/etc/nats/hub.conf:ro
+      # - ./hub.conf:/etc/nats/hub.conf:ro
       - hub-js:/data/jetstream
     command: ["-c", "/etc/nats/hub.conf"]
 
-  leaf1:
-    image: nats:latest
-    container_name: nats-leaf1
-    ports:
-      - "4223:4222" # leaf client port
-      - "8223:8222" # leaf monitoring
-    volumes:
-      - ./leaf1.conf:/etc/nats/leaf.conf:ro
-      - leaf-js1:/data/jetstream
-    command: ["-c", "/etc/nats/leaf.conf"]
-    depends_on:
-      - hub
+  # leaf1:
+  #   image: nats:latest
+  #   container_name: nats-leaf1
+  #   ports:
+  #     - "4223:4222" # leaf client port
+  #     - "8223:8222" # leaf monitoring
+  #   volumes:
+  #     - ./leaf1.conf:/etc/nats/leaf.conf:ro
+  #     - leaf-js1:/data/jetstream
+  #   command: ["-c", "/etc/nats/leaf.conf"]
+  #   depends_on:
+  #     - hub
 
-  leaf2:
-    image: nats:latest
-    container_name: nats-leaf2
-    ports:
-      - "4224:4222" # leaf client port
-      - "8224:8222" # leaf monitoring
-    volumes:
-      - ./leaf2.conf:/etc/nats/leaf.conf:ro
-      - leaf-js2:/data/jetstream
-    command: ["-c", "/etc/nats/leaf.conf"]
-    depends_on:
-      - hub
+  # leaf2:
+  #   image: nats:latest
+  #   container_name: nats-leaf2
+  #   ports:
+  #     - "4224:4222" # leaf client port
+  #     - "8224:8222" # leaf monitoring
+  #   volumes:
+  #     - ./leaf2.conf:/etc/nats/leaf.conf:ro
+  #     - leaf-js2:/data/jetstream
+  #   command: ["-c", "/etc/nats/leaf.conf"]
+  #   depends_on:
+  #     - hub
 
 volumes:
   hub-js:
   leaf-js1:
   leaf-js2:
+
+# Define the local configuration files to be automatically synced
+configs:
+  hub_config:
+    file: ./hub.conf
+  leaf1_config:
+    file: ./leaf1.conf
+  leaf2_config:
+    file: ./leaf2.conf
